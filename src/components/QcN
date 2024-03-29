@@ -1,0 +1,57 @@
+QCo0 - Usager_train
+QCo1 - Type_Usager
+QCo4 - Motif
+Precision_Motif
+QCo5 - Frequence
+QCo6 - Service
+Precision_Service
+QCo7 - Commerces
+Precision_Commercesc
+QCo8 - Attentes_Gare
+QCo9 - Commune_résidence
+QCo9A - Rue_residence
+QCo10 - CSP
+QCo11 - Age
+QNV1 - NV_Motif_Présence
+Precision Motif_Presence_NV
+QNV1A - NV_Bus_Car_Diffusion
+Précision NV_Bus_Car_Diffusion
+QNV1B - NV_Bus_Car_Rabattement
+Précision NV_Bus_Car_Rabattement
+QNV6 - NV_Services
+Précision NV_Services
+QNV7 - NV_Commerces
+Précision NV_Commerces
+QNV8 - NV_Attentes_Gare
+QP1 - P_Gare_Destination
+QP2 - P_Intermodalite_rabattement
+Précision P_Intermodalite_rabattement
+QP2A - P_Detail_stationnement_rabattement
+Précision P_Detail_stationnement_rabattement
+QP2B - P_Detail_Depose_rabattement
+QP2C - P_Detail_Bus_Car
+Précision P_Detail_Bus_Car
+QP2D - P_Detail_vélo
+Précision P_Detail_vélo
+QP2E - P_Detail_trottinette
+Précision P_Detail_trottinette
+QP3 - P_Origine_commune
+Précision P_Origine_commune
+QP3A - P_Origine_rue
+QA1 - A_Gare_Origine
+QA2 - A_Intermodalite_Diffusion
+Précision A_Intermodalite_Diffusion
+QA2A - A_Detail_stationnement_Diffusion
+Précision A_Detail_stationnement_Diffusion
+QA2B - A_Detail_Reprise_Diffusion
+QA2C - A_Detail_bus
+Précision A_Detail_bus
+QA2D - A_Detail_vélo
+Précision A_Detail_vélo
+QA2E - A_Detail_trottinette
+Précision A_Detail_trottinette
+QA3 - A_Destination_commune
+Précision A_Destination_commune
+QA3A - A_Destination_rue
+QC1 - C_Gare_Origine
+QC2 - C_Gare_Destination
