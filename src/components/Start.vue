@@ -1,4 +1,4 @@
-``<template>
+<template>
 	<div class="container">
 		<div v-if="level === 0">
 			<h2>Prénom enqueteur :</h2>
