@@ -198,6 +198,18 @@ const nv_commerces = [
 	{ id: 5, output: "Proximité", text: "Un commerce de proximité --> précisez" },
 	{ id: 6, output: "Autre", text: "Autres --> précisez" },
 ];
+const p_intermodalite_rabattement = [
+	{ id: 1, output: "Pied", text: "A pied exclusivement" },
+	{ id: 2, output: "Conducteur", text: "Voiture conducteur" },
+	{ id: 3, output: "Passager", text: "Voiture passager" },
+	{ id: 4, output: "Location", text: "Voiture de location" },
+	{ id: 5, output: "Bus", text: "Bus ou Car" },
+	{ id: 6, output: "Moto", text: "En scooter/moto" },
+	{ id: 7, output: "Taxi", text: "Taxi" },
+	{ id: 8, output: "Vélo", text: "Vélo" },
+	{ id: 9, output: "Trottinette", text: "Trottinette" },
+	{ id: 10, output: "Autre", text: "Autre -> précisez :" },
+];
 
 export {
 	sexes,
@@ -214,4 +226,5 @@ export {
 	nv_bus_car_rabattement,
 	nv_services,
 	nv_commerces,
+	p_intermodalite_rabattement,
 };

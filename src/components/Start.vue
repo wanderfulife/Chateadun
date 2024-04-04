@@ -186,7 +186,7 @@
 
 		<div id="QNV6" v-if="level === 16">
 			<h1>Quels services souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
-			<select v-model=" NV_Service" class="form-control">
+			<select v-model="NV_Service" class="form-control">
 				<option v-for="option in nv_services" :key="option.id" :value="option.output">
 					{{ option.text }}
 				</option>
@@ -210,11 +210,33 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QNV8">
+		<div id="QNV8" v-if="level === 18">
 			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
 				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
 			<input class="form-control" type="text" v-model="NV_Attentes_Gare" placeholder="Precisions">
 			<button v-if="NV_Attentes_Gare" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<!-- v-if="Type_Usager === 'Arrivant' -->
+		<div id="QP1" v-if="Type_Usager === 'Partant' && level === 19">
+			<h1>Quelle sera votre gare de destination? </h1>
+			<GareSelector v-model="P_Gare_Destination" />
+			<input id="Autre" class="form-control" type="text" v-model="P_Gare_Destination"
+				placeholder="Gare Internationale">
+			<button v-if="P_Gare_Destination" @click="next" class="btn-fin">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+		<div id="QP2" v-if="level === 20">
+			<h1>Comment êtes-vous arrivé(e) en gare de Châteaudun ?</h1>
+			<select v-model="P_Intermodalite_rabattement" class="form-control">
+				<option v-for="option in p_intermodalite_rabattement" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="P_Intermodalite_rabattement === 'Autre'" class="form-control" type="text"
+				v-model="Precision_P_Intermodalite_rabattement" placeholder="Precisions">
+			<button v-if="P_Intermodalite_rabattement" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
@@ -325,7 +347,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { sexes, zone, usagers, typeUsagers, motif, frequence, services, commerces, csp, nv_motif_presence, nv_bus_car_diffusion, nv_bus_car_rabattement, nv_services, nv_commerces } from "./reponses";
+import { sexes, zone, usagers, typeUsagers, motif, frequence, services, commerces, csp, nv_motif_presence, nv_bus_car_diffusion, nv_bus_car_rabattement, nv_services, nv_commerces, p_intermodalite_rabattement } from "./reponses";
 import GareSelector from "./GareSelector.vue";
 import CommuneSelector from './CommuneSelector.vue';
 import { db } from "../firebaseConfig";
@@ -363,6 +385,10 @@ const NV_Service = ref('');
 const Precision_NV_Service = ref('');
 const NV_Commerces = ref('');
 const Precision_NV_Commerces = ref('');
+const P_Gare_Destination = ref('');
+const P_Intermodalite_rabattement = ref('');
+const Precision_P_Intermodalite_rabattement = ref('');
+
 
 const startSurvey = () => {
 	startDate.value = new Date().toLocaleTimeString("fr-FR").slice(0, 8);
@@ -417,8 +443,11 @@ const submitSurvey = async () => {
 		NV_Commerces: NV_Commerces.value,
 		Precision_NV_Commerces: Precision_NV_Commerces.value,
 		NV_Attentes_Gare: NV_Attentes_Gare.value,
+		P_Gare_Destination: P_Gare_Destination.value,
+		P_Intermodalite_rabattement: P_Intermodalite_rabattement.value,
+		Precision_P_Intermodalite_rabattement: Precision_P_Intermodalite_rabattement.value,
 
-		
+
 	});
 	startDate.value = "";
 	SEXE.value = "";
@@ -448,6 +477,9 @@ const submitSurvey = async () => {
 	NV_Commerces.value = "";
 	Precision_NV_Commerces.value = "";
 	NV_Attentes_Gare.value = "";
+	P_Gare_Destination.value = "";
+	P_Intermodalite_rabattement.value = "";
+	Precision_P_Intermodalite_rabattement.value = "";
 
 };
 
@@ -492,6 +524,9 @@ const downloadData = async () => {
 			NV_Commerces: "NV_Commerces",
 			Precision_NV_Commerces: "Precision_NV_Commerces",
 			NV_Attentes_Gare: "NV_Attentes_Gare",
+			P_Gare_Destination: "P_Gare_Destination",
+			P_Intermodalite_rabattement: "P_Intermodalite_rabattement",
+			Precision_P_Intermodalite_rabattement: "Precision_P_Intermodalite_rabattement"
 
 		};
 
@@ -536,6 +571,9 @@ const downloadData = async () => {
 				NV_Commerces: docData.NV_Commerces || "",
 				Precision_NV_Commerces: docData.Precision_NV_Commerces || "",
 				NV_Attentes_Gare: docData.NV_Attentes_Gare || "",
+				P_Gare_Destination: docData.P_Gare_Destination || "",
+				P_Intermodalite_rabattement: docData.P_Intermodalite_rabattement || "",
+				Precision_P_Intermodalite_rabattement: docData.Precision_P_Intermodalite_rabattement || ""
 			};
 			data.push(mappedData);
 
