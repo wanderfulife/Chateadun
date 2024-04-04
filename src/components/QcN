@@ -1,18 +1,18 @@
-QCo0 - Usager_train
-QCo1 - Type_Usager
-QCo4 - Motif
-Precision_Motif
-QCo5 - Frequence
-QCo6 - Service
-Precision_Service
-QCo7 - Commerces
-Precision_Commercesc
-QCo8 - Attentes_Gare
-QCo9 - Commune_résidence
-QCo9A - Rue_residence
-QCo10 - CSP
-QCo11 - Age
-QNV1 - NV_Motif_Présence
+<!-- QCo0 - Usager_train -->
+<!-- QCo1 - Type_Usager -->
+<!-- QCo4 - Motif -->
+<!-- Precision_Motif -->
+<!-- QCo5 - Frequence -->
+<!-- QCo6 - Service -->
+<!-- Precision_Service -->
+<!-- QCo7 - Commerces -->
+<!-- Precision_Commerces -->
+<!-- QCo8 - Attentes_Gare -->
+<!-- QCo9 - Commune_résidence -->
+<!-- QCo9A - Rue_residence -->
+<!-- QCo10 - CSP -->
+<!-- QCo11 - Age -->
+<!-- QNV1 - NV_Motif_Présence -->
 Precision Motif_Presence_NV
 QNV1A - NV_Bus_Car_Diffusion
 Précision NV_Bus_Car_Diffusion

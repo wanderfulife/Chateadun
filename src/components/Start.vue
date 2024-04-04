@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div v-if="level === 0">
+		<div id="enqueteur" v-if="level === 0">
 			<h2>Prénom enqueteur :</h2>
 			<input class="form-control" type="text" v-model="enqueteur" />
 			<button v-if="enqueteur" @click="next" class="btn-next">Suivant</button>
@@ -10,7 +10,7 @@
 			<button @click="startSurvey" class="btn-next">COMMENCER QUESTIONNAIRE</button>
 		</div>
 
-		<div v-if="level === 2" class="form-group">
+		<div id="sexe" v-if="level === 2" class="form-group">
 			<h1>Sexe de la personne interviewée</h1>
 			<select v-model="SEXE" class="form-control">
 				<option v-for="option in sexes" :key="option.id" :value="option.output">
@@ -21,7 +21,18 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div v-if="level === 3" class="form-group">
+		<div id="zone" v-if="level === 3" class="form-group">
+			<h1>Lieu de l'interview</h1>
+			<select v-model="ZONE" class="form-control">
+				<option v-for="option in zone" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<button v-if="ZONE" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="Qco0" v-if="level === 4" class="form-group">
 			<h1>L'usager interviewé voyage en train ?</h1>
 			<select v-model="Usager_train" class="form-control">
 				<option v-for="option in usagers" :key="option.id" :value="option.output">
@@ -32,6 +43,122 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
+		<div id="QCo1" v-if="level === 5 && Usager_train === 'Usager'">
+			<h1>Par rapport à votre voyage en train :</h1>
+			<select v-model="Type_Usager" class="form-control">
+				<option v-for="option in typeUsagers" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<button v-if="Type_Usager" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo4" v-if="level === 6">
+			<h1>Quel est le motif de votre déplacement ?</h1>
+			<select v-model="Motif" class="form-control">
+				<option v-for="option in motif" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="Motif === 'Autre'" class="form-control" type="text" v-model="Precision_Motif"
+				placeholder="Precisions">
+			<button v-if="Motif" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo5" v-if="level === 7">
+			<h1>A quelle fréquence venez-vous dans cette gare?</h1>
+			<select v-model="Frequence" class="form-control">
+				<option v-for="option in frequence" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<button v-if="Frequence" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo6" v-if="level === 8">
+			<h1>Quels services souhaiteriez-vous trouver en gare ?</h1>
+			<select v-model="Service" class="form-control">
+				<option v-for="option in services" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="Service === 'Autre'" class="form-control" type="text" v-model="Precision_Service"
+				placeholder="Precisions">
+			<button v-if="Motif" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo7" v-if="level === 9">
+			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare</h1>
+			<select v-model="Commerces" class="form-control">
+				<option v-for="option in commerces" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="Commerces === 'Autre' || Commerces === 'Proximité'" class="form-control" type="text"
+				v-model="Precision_Commerces" placeholder="Precisions">
+			<button v-if="Motif" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo8" v-if="level === 10">
+			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
+				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
+			<input class="form-control" type="text" v-model="Attentes_Gare" placeholder="Precisions">
+			<button v-if="Attentes_Gare" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo9" v-if="level === 11">
+			<h1>Quelle est votre commune de résidence ?</h1>
+			<div>
+				<CommuneSelector v-model="Commune_residence" />
+			</div>
+		</div>
+
+		<div id="QCo9A" v-if="level === 11 && Commune_residence === 'CHATEAUDUN - 28088'">
+			<!--v-if=" level===12 && Commune_residence==='Chateaudun' -->
+			<h1>Précisez de quelle rue à Châteaudun ?</h1>
+			<input class="form-control" type="text" v-model="Rue_résidence" placeholder="Precisions">
+			<button v-if="Rue_résidence" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo10" v-if="level === 12">
+			<h1>Quelle est votre profession?</h1>
+			<select v-model="CSP" class="form-control">
+				<option v-for="option in csp" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<button v-if="CSP" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo11" v-if="level === 13">
+			<h1>Quel est votre âge ?</h1>
+			<input class=" form-control" type="text" v-model="Age" placeholder="Precisions">
+			<button v-if="Age" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QNV1" v-if="level === 14">
+			<h1>Quelle est la raison de votre présence en gare ?</h1>
+			<select v-model=" NV_MOTIF_PRESENCE" class="form-control">
+			<option v-for="option in nv_motif_presence" :key="option.id" :value="option.output">
+				{{ option.text }}
+			</option>
+			</select>
+			<input v-if="NV_MOTIF_PRESENCE === 'Autre'" class="form-control" type="text"
+				v-model="Precision_NV_MOTIF_PRESENCE" placeholder="Precisions">
+			<button v-if="NV_MOTIF_PRESENCE" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<!--  
 		<div v-if="Usager_train === 'Non-usager' && level === 4">
 			<h1>Néanmoins à quelle fréquence allez-vous en gare de Sens ?</h1>
 			<select v-model="NU_Frequence" class="form-control">
@@ -79,7 +206,8 @@
 
 		<div v-if="Type_Usager === 'Partant' && level === 6">
 			<h1>Combien de temps allez-vous rester stationner ?</h1>
-			<input id="autre" class="form-control" type="text" v-model="P_Detail_CV_temps" placeholder="Réponse ouverte">
+			<input id="autre" class="form-control" type="text" v-model="P_Detail_CV_temps"
+				placeholder="Réponse ouverte">
 			<button v-if="P_Detail_CV_temps" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
@@ -87,14 +215,16 @@
 		<div v-if="Type_Usager === 'Arrivant' && level === 5">
 			<h1>Quelle est votre gare d'origine? </h1>
 			<GareSelector v-model="A_Gare_Origine" />
-			<input id="autre" class="form-control" type="text" v-model="A_Gare_Origine" placeholder="Gare Internationale">
+			<input id="autre" class="form-control" type="text" v-model="A_Gare_Origine"
+				placeholder="Gare Internationale">
 			<button v-if="A_Gare_Origine" @click="next" class="btn-fin">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
 		<div v-if="Type_Usager === 'Arrivant' && level === 6">
 			<h1>Combien de temps etes-vous rester stationner ?</h1>
-			<input id="autre" class="form-control" type="text" v-model="A_Detail_VC_temps" placeholder="Réponse ouverte">
+			<input id="autre" class="form-control" type="text" v-model="A_Detail_VC_temps"
+				placeholder="Réponse ouverte">
 			<button v-if="A_Detail_VC_temps" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
@@ -112,13 +242,19 @@
 			<button v-if="Frequence" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
-		<div
-			v-if="level === 8 || level === 6 && Type_Usager === 'Attendre' || level === 6 && Type_Usager === 'Accompagner'
+
+
+		last div download
+		 v-if="level === 8 || level === 6 && Type_Usager === 'Attendre' || level === 6 && Type_Usager === 'Accompagner'
 				|| level === 6 && Type_Usager === 'Renseignement' || level === 6 && Type_Usager === 'Achat'
-				|| level === 6 && Type_Usager === 'Travailler' || level === 6 && Type_Usager === 'Bus' || level === 6 && Type_Usager === 'Autre'">
-			<h1>Quelle est votre commune de résidence ?</h1>
+				|| level === 6 && Type_Usager === 'Travailler' || level === 6 && Type_Usager === 'Bus' || level === 6 && Type_Usager === 'Autre'"
+		 
+				<h1>Quelle est votre commune de résidence ?</h1>
 			<CommuneSelector v-model="Commune_residence" />
-			<button v-if="Frequence" @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
+			-->
+
+		<div>
+			<button @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 		<img class="logo" src="../assets/Alycelogo.webp" alt="Logo Alyce">
@@ -128,30 +264,35 @@
 
 <script setup>
 import { ref } from "vue";
-import { sexes, usagers, typeUsagers, nu_frequence, frequence, parking } from "./reponses";
+import { sexes, zone, usagers, typeUsagers, motif, frequence, services, commerces, csp, nv_motif_presence } from "./reponses";
 import GareSelector from "./GareSelector.vue";
 import CommuneSelector from './CommuneSelector.vue';
 import { db } from "../firebaseConfig";
-import { collection, doc, getDoc, getDocs, updateDoc, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import * as XLSX from "xlsx";
 
 const surveyCollectionRef = collection(db, "Chateadun");
-const surveyNumber = ref(0);
 const level = ref(0);
 const startDate = ref('');
 const enqueteur = ref('');
 const SEXE = ref('');
+const ZONE = ref('');
 const Usager_train = ref('');
 const Type_Usager = ref('');
-const NU_Frequence = ref('');
-const NU_Usage_parking = ref('');
-const precision_Type_Usager = ref('');
-const P_Gare_Destination = ref('');
-const P_Detail_CV_temps = ref('');
-const A_Gare_Origine = ref('');
-const A_Detail_VC_temps = ref('');
+const Motif = ref('');
+const Precision_Motif = ref('');
 const Frequence = ref('');
+const Service = ref('');
+const Precision_Service = ref('');
+const Commerces = ref('');
+const Precision_Commerces = ref('');
+const Attentes_Gare = ref('');
 const Commune_residence = ref('');
+const Rue_résidence = ref('');
+const CSP = ref('');
+const Age = ref('');
+const NV_MOTIF_PRESENCE = ref('');
+const Precision_NV_MOTIF_PRESENCE = ref('');
 
 
 const startSurvey = () => {
@@ -176,38 +317,48 @@ const submitSurvey = async () => {
 	level.value = 1;
 	await addDoc(surveyCollectionRef, {
 		HEURE_DEBUT: startDate.value,
-		ID_ENQUETE: surveyNumber.value,
 		SEXE: SEXE.value,
 		DATE: new Date().toLocaleDateString("fr-FR").replace(/\//g, "-"),
 		JOUR: new Date().toLocaleDateString("fr-FR", { weekday: 'long' }),
 		ENQUETEUR: enqueteur.value,
 		HEURE_FIN: new Date().toLocaleTimeString("fr-FR").slice(0, 8),
+		ZONE: ZONE.value,
 		Usager_train: Usager_train.value,
 		Type_Usager: Type_Usager.value,
-		Precision_Type_Usager: precision_Type_Usager.value,
-		NU_Frequence: NU_Frequence.value,
-		NU_Usage_parking: NU_Usage_parking.value,
-		P_Gare_Destination: P_Gare_Destination.value,
-		P_Detail_CV_temps: P_Detail_CV_temps.value,
-		A_Detail_VC_temps: A_Detail_VC_temps.value,
-		A_Gare_Origine: A_Gare_Origine.value,
+		Motif: Motif.value,
+		Precision_Motif: Precision_Motif.value,
 		Frequence: Frequence.value,
+		Service: Service.value,
+		Precision_Service: Precision_Service.value,
+		Commerces: Commerces.value,
+		Precision_Commerces: Precision_Commerces.value,
+		Attentes_Gare: Attentes_Gare.value,
 		Commune_residence: Commune_residence.value,
+		Rue_résidence: Rue_résidence.value,
+		CSP: CSP.value,
+		Age: Age.value,
+		NV_MOTIF_PRESENCE: NV_MOTIF_PRESENCE.value,
+		Precision_NV_MOTIF_PRESENCE: Precision_NV_MOTIF_PRESENCE.value,
 	});
 	startDate.value = "";
 	SEXE.value = "";
+	ZONE.value = "";
 	Usager_train.value = "";
 	Type_Usager.value = "";
-	NU_Frequence.value = "";
-	NU_Usage_parking.value = "";
-	precision_Type_Usager.value = "";
-	P_Gare_Destination.value = "";
-	P_Detail_CV_temps.value = "";
-	A_Gare_Origine.value = "";
-	A_Detail_VC_temps.value = "";
+	Motif.value = "";
+	Precision_Motif.value = "";
 	Frequence.value = "";
+	Service.value = "";
+	Precision_Service.value = "";
+	Commerces.value = "";
+	Precision_Commerces.value = "";
+	Attentes_Gare.value = "";
 	Commune_residence.value = "";
-	await updateSurveyNumber()
+	Rue_résidence.value = "";
+	CSP.value = "";
+	Age.value = "";
+	NV_MOTIF_PRESENCE.value = "";
+	Precision_NV_MOTIF_PRESENCE.value = "";
 };
 
 const downloadData = async () => {
@@ -216,27 +367,32 @@ const downloadData = async () => {
 		let data = [];
 		let maxWidths = {}; // Object to keep track of maximum width for each column
 
-		// Define your headers
+		// Define your headers // MODIFICATION SUR L'EXCEL
 		const headers = {
 			ID_questionnaire: "ID_questionnaire",
-			ID_ENQUETE: "ID_ENQUETE",
 			Enqueteur: "Enqueteur",
 			DATE: "DATE",
 			JOUR: "JOUR",
 			HEURE: "HEURE",
 			HEURE_FIN: "HEURE_FIN",
 			SEXE: "SEXE",
+			ZONE: "ZONE",
 			Usager_train: "Usager_train",
 			Type_Usager: "Type_Usager",
-			Precision_Type_Usager: "Precision_Type_Usager",
-			NU_Frequence: "NU_Frequence",
-			NU_Usage_parking: "NU_Usage_parking",
+			Motif: "Motif",
+			Precision_Motif: "Precision_Motif",
 			Frequence: "Frequence",
+			Service: "Service",
+			Precision_Service: "Precision_Service",
+			Commerces: "Commerces",
+			Precision_Commerces: "Precision_Commerces",
+			Attentes_Gare: "Attentes_Gare",
 			Commune_residence: "Commune_residence",
-			P_Gare_Destination: "P_Gare_Destination",
-			P_Detail_CV_temps: "P_Detail_CV_temps",
-			A_Gare_Origine: "A_Gare_Origine",
-			A_Detail_VC_temps: "A_Detail_VC_temps",
+			Rue_résidence: "Rue_résidence",
+			CSP: "CSP",
+			Age: "Age",
+			NV_MOTIF_PRESENCE: "NV_MOTIF_PRESENCE",
+			Precision_NV_MOTIF_PRESENCE: "Precision_NV_MOTIF_PRESENCE",
 		};
 
 		// Initialize maxWidths with header lengths
@@ -248,24 +404,29 @@ const downloadData = async () => {
 			let docData = doc.data();
 			let mappedData = {
 				ID_questionnaire: doc.id,
-				ID_ENQUETE: docData.ID_ENQUETE || "",
 				Enqueteur: docData.ENQUETEUR || "",
 				DATE: docData.DATE || "",
 				JOUR: docData.JOUR || "",
 				HEURE: docData.HEURE_DEBUT || "",
 				HEURE_FIN: docData.HEURE_FIN || "",
 				SEXE: docData.SEXE || "",
+				ZONE: docData.ZONE || "",
 				Usager_train: docData.Usager_train || "",
 				Type_Usager: docData.Type_Usager || "",
-				Precision_Type_Usager: docData.Precision_Type_Usager || "",
-				NU_Frequence: docData.NU_Frequence || "",
-				NU_Usage_parking: docData.NU_Usage_parking || "",
+				Motif: docData.Motif || "",
+				Precision_Motif: docData.Precision_Motif || "",
 				Frequence: docData.Frequence || "",
+				Service: docData.Service || "",
+				Precision_Service: docData.Precision_Service || "",
+				Commerces: docData.Commerces || "",
+				Precision_Commerces: docData.Precision_Commerces || "",
+				Attentes_Gare: docData.Attentes_Gare || "",
 				Commune_residence: docData.Commune_residence || "",
-				P_Gare_Destination: docData.P_Gare_Destination || "",
-				P_Detail_CV_temps: docData.P_Detail_CV_temps || "",
-				A_Gare_Origine: docData.A_Gare_Origine || "",
-				A_Detail_VC_temps: docData.A_Detail_VC_temps || "",
+				Rue_résidence: docData.Rue_résidence || "",
+				CSP: docData.CSP || "",
+				Age: docData.Age || "",
+				NV_MOTIF_PRESENCE: docData.NV_MOTIF_PRESENCE || "",
+				Precision_NV_MOTIF_PRESENCE: docData.Precision_NV_MOTIF_PRESENCE || "",
 			};
 			data.push(mappedData);
 
