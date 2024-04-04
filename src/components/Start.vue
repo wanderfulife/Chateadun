@@ -87,7 +87,7 @@
 			</select>
 			<input v-if="Service === 'Autre'" class="form-control" type="text" v-model="Precision_Service"
 				placeholder="Precisions">
-			<button v-if="Motif" @click="next" class="btn-next">Suivant</button>
+			<button v-if="Service" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
@@ -100,7 +100,7 @@
 			</select>
 			<input v-if="Commerces === 'Autre' || Commerces === 'Proximité'" class="form-control" type="text"
 				v-model="Precision_Commerces" placeholder="Precisions">
-			<button v-if="Motif" @click="next" class="btn-next">Suivant</button>
+			<button v-if="Commerces" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
@@ -147,10 +147,10 @@
 
 		<div id="QNV1" v-if="level === 14">
 			<h1>Quelle est la raison de votre présence en gare ?</h1>
-			<select v-model=" NV_MOTIF_PRESENCE" class="form-control">
-			<option v-for="option in nv_motif_presence" :key="option.id" :value="option.output">
-				{{ option.text }}
-			</option>
+			<select v-model="NV_MOTIF_PRESENCE" class="form-control">
+				<option v-for="option in nv_motif_presence" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
 			</select>
 			<input v-if="NV_MOTIF_PRESENCE === 'Autre'" class="form-control" type="text"
 				v-model="Precision_NV_MOTIF_PRESENCE" placeholder="Precisions">
@@ -158,7 +158,75 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<!--  
+		<div id="QNV1A" v-if="level === 15">
+			<h1>Quelle ligne de bus ou de car venez-vous prendre en gare de Châteaudun ?</h1>
+			<select v-model="NV_Bus_Car_Diffusion" class="form-control">
+				<option v-for="option in nv_bus_car_diffusion" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_Bus_Car_Diffusion === 'Autre'" class="form-control" type="text"
+				v-model="Precision_NV_Bus_Car_Diffusion" placeholder="Precisions">
+			<button v-if="NV_Bus_Car_Diffusion" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QNV1B" v-if="level === 15">
+			<h1>Avec quelle ligne de bus ou de car êtes-vous arrivé en gare de Châteaudun ?</h1>
+			<select v-model="NV_Bus_Car_Rabattement" class="form-control">
+				<option v-for="option in nv_bus_car_rabattement" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_Bus_Car_Rabattement === 'Autre'" class="form-control" type="text"
+				v-model="Precision_NV_Bus_Car_Rabattement" placeholder="Precisions">
+			<button v-if="NV_Bus_Car_Rabattement" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QNV6" v-if="level === 16">
+			<h1>Quels services souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
+			<select v-model=" NV_Service" class="form-control">
+				<option v-for="option in nv_services" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_Service === 'Autre'" class="form-control" type="text" v-model="Precision_NV_Service"
+				placeholder="Precisions">
+			<button v-if="NV_Service" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCNV7" v-if="level === 17">
+			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
+			<select v-model="NV_Commerces" class="form-control">
+				<option v-for="option in nv_commerces" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_Commerces === 'Autre' || Commerces === 'Proximité'" class="form-control" type="text"
+				v-model="Precision_NV_Commerces" placeholder="Precisions">
+			<button v-if="NV_Commerces" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QNV8">
+			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
+				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
+			<input class="form-control" type="text" v-model="NV_Attentes_Gare" placeholder="Precisions">
+			<button v-if="NV_Attentes_Gare" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div v-if="level > 1">
+			<button @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+		<img class="logo" src="../assets/Alycelogo.webp" alt="Logo Alyce">
+		<button class="btn-fin" @click="downloadData">download DATA</button>
+	</div>
+
+	<!--  
 		<div v-if="Usager_train === 'Non-usager' && level === 4">
 			<h1>Néanmoins à quelle fréquence allez-vous en gare de Sens ?</h1>
 			<select v-model="NU_Frequence" class="form-control">
@@ -253,18 +321,11 @@
 			<CommuneSelector v-model="Commune_residence" />
 			-->
 
-		<div>
-			<button @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-		<img class="logo" src="../assets/Alycelogo.webp" alt="Logo Alyce">
-		<button class="btn-fin" @click="downloadData">download DATA</button>
-	</div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { sexes, zone, usagers, typeUsagers, motif, frequence, services, commerces, csp, nv_motif_presence } from "./reponses";
+import { sexes, zone, usagers, typeUsagers, motif, frequence, services, commerces, csp, nv_motif_presence, nv_bus_car_diffusion, nv_bus_car_rabattement, nv_services, nv_commerces } from "./reponses";
 import GareSelector from "./GareSelector.vue";
 import CommuneSelector from './CommuneSelector.vue';
 import { db } from "../firebaseConfig";
@@ -287,13 +348,21 @@ const Precision_Service = ref('');
 const Commerces = ref('');
 const Precision_Commerces = ref('');
 const Attentes_Gare = ref('');
+const NV_Attentes_Gare = ref('');
 const Commune_residence = ref('');
 const Rue_résidence = ref('');
 const CSP = ref('');
 const Age = ref('');
 const NV_MOTIF_PRESENCE = ref('');
 const Precision_NV_MOTIF_PRESENCE = ref('');
-
+const NV_Bus_Car_Diffusion = ref('');
+const Precision_NV_Bus_Car_Diffusion = ref('');
+const NV_Bus_Car_Rabattement = ref('');
+const Precision_NV_Bus_Car_Rabattement = ref('');
+const NV_Service = ref('');
+const Precision_NV_Service = ref('');
+const NV_Commerces = ref('');
+const Precision_NV_Commerces = ref('');
 
 const startSurvey = () => {
 	startDate.value = new Date().toLocaleTimeString("fr-FR").slice(0, 8);
@@ -339,6 +408,17 @@ const submitSurvey = async () => {
 		Age: Age.value,
 		NV_MOTIF_PRESENCE: NV_MOTIF_PRESENCE.value,
 		Precision_NV_MOTIF_PRESENCE: Precision_NV_MOTIF_PRESENCE.value,
+		NV_Bus_Car_Diffusion: NV_Bus_Car_Diffusion.value,
+		Precision_NV_Bus_Car_Diffusion: Precision_NV_Bus_Car_Diffusion.value,
+		NV_Bus_Car_Rabattement: NV_Bus_Car_Rabattement.value,
+		Precision_NV_Bus_Car_Rabattement: Precision_NV_Bus_Car_Rabattement.value,
+		NV_Service: NV_Service.value,
+		Precision_NV_Service: Precision_NV_Service.value,
+		NV_Commerces: NV_Commerces.value,
+		Precision_NV_Commerces: Precision_NV_Commerces.value,
+		NV_Attentes_Gare: NV_Attentes_Gare.value,
+
+		
 	});
 	startDate.value = "";
 	SEXE.value = "";
@@ -359,6 +439,16 @@ const submitSurvey = async () => {
 	Age.value = "";
 	NV_MOTIF_PRESENCE.value = "";
 	Precision_NV_MOTIF_PRESENCE.value = "";
+	NV_Bus_Car_Diffusion.value = "";
+	Precision_NV_Bus_Car_Diffusion.value = "";
+	NV_Bus_Car_Rabattement.value = "";
+	Precision_NV_Bus_Car_Rabattement.value = "";
+	NV_Service.value = "";
+	Precision_NV_Service.value = "";
+	NV_Commerces.value = "";
+	Precision_NV_Commerces.value = "";
+	NV_Attentes_Gare.value = "";
+
 };
 
 const downloadData = async () => {
@@ -393,6 +483,16 @@ const downloadData = async () => {
 			Age: "Age",
 			NV_MOTIF_PRESENCE: "NV_MOTIF_PRESENCE",
 			Precision_NV_MOTIF_PRESENCE: "Precision_NV_MOTIF_PRESENCE",
+			NV_Bus_Car_Diffusion: "NV_Bus_Car_Diffusion",
+			Precision_NV_Bus_Car_Diffusion: "Precision_NV_Bus_Car_Diffusion",
+			NV_Bus_Car_Rabattement: "NV_Bus_Car_Rabattement",
+			Precision_NV_Bus_Car_Rabattement: "Precision_NV_Bus_Car_Rabattement",
+			NV_Service: "NV_Service",
+			Precision_NV_Service: "Precision_NV_Service",
+			NV_Commerces: "NV_Commerces",
+			Precision_NV_Commerces: "Precision_NV_Commerces",
+			NV_Attentes_Gare: "NV_Attentes_Gare",
+
 		};
 
 		// Initialize maxWidths with header lengths
@@ -427,6 +527,15 @@ const downloadData = async () => {
 				Age: docData.Age || "",
 				NV_MOTIF_PRESENCE: docData.NV_MOTIF_PRESENCE || "",
 				Precision_NV_MOTIF_PRESENCE: docData.Precision_NV_MOTIF_PRESENCE || "",
+				NV_Bus_Car_Diffusion: docData.NV_Bus_Car_Diffusion || "",
+				Precision_NV_Bus_Car_Diffusion: docData.Precision_NV_Bus_Car_Diffusion || "",
+				NV_Bus_Car_Rabattement: docData.NV_Bus_Car_Rabattement || "",
+				Precision_NV_Bus_Car_Rabattement: docData.Precision_NV_Bus_Car_Rabattement || "",
+				NV_Service: docData.NV_Service || "",
+				Precision_NV_Service: docData.Precision_NV_Service || "",
+				NV_Commerces: docData.NV_Commerces || "",
+				Precision_NV_Commerces: docData.Precision_NV_Commerces || "",
+				NV_Attentes_Gare: docData.NV_Attentes_Gare || "",
 			};
 			data.push(mappedData);
 

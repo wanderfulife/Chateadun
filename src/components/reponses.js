@@ -142,6 +142,63 @@ const nv_motif_presence = [
 	{ id: 5, output: "Autre", text: "Autre -> précisez :" },
 ];
 
+const nv_bus_car_diffusion = [
+	{ id: 1, output: "B1", text: "C'Bus 1" },
+	{ id: 2, output: "B2", text: "C'Bus 2" },
+	{ id: 3, output: "B3", text: "C'Bus 3" },
+	{ id: 4, output: "C3", text: "Car REMI 3" },
+	{ id: 5, output: "C3A", text: "Car REMI 3A" },
+	{ id: 6, output: "C9", text: "Car REMI 9" },
+	{ id: 7, output: "C9A", text: "Car REMI 9A" },
+	{ id: 8, output: "C32A", text: "Car REMI 32A" },
+	{ id: 9, output: "C32B", text: "Car REMI 32B" },
+	{ id: 10, output: "C434", text: "Car REMI 434" },
+	{ id: 10, output: "Autre", text: "Autre - précisez" },
+];
+const nv_bus_car_rabattement = [
+	{ id: 1, output: "B1", text: "C'Bus 1" },
+	{ id: 2, output: "B2", text: "C'Bus 2" },
+	{ id: 3, output: "B3", text: "C'Bus 3" },
+	{ id: 4, output: "C3", text: "Car REMI 3" },
+	{ id: 5, output: "C3A", text: "Car REMI 3A" },
+	{ id: 6, output: "C9", text: "Car REMI 9" },
+	{ id: 7, output: "C9A", text: "Car REMI 9A" },
+	{ id: 8, output: "C32A", text: "Car REMI 32A" },
+	{ id: 9, output: "C32B", text: "Car REMI 32B" },
+	{ id: 10, output: "C434", text: "Car REMI 434" },
+	{ id: 10, output: "Autre", text: "Autre - précisez" },
+];
+
+const nv_services = [
+	{ id: 1, output: "Sanitaires", text: "Des sanitaires" },
+	{
+		id: 2,
+		output: "Vélos",
+		text: "Un atelier de réparation et/ou de location vélos",
+	},
+	{ id: 3, output: "Santé", text: "Un centre de santé" },
+	{
+		id: 4,
+		output: "Tourisme",
+		text: "Une antenne de l'office du tourisme",
+	},
+	{ id: 5, output: "Photomaton", text: "Un Photomaton" },
+	{ id: 6, output: "Autre", text: "Autres --> précisez" },
+];
+
+const nv_commerces = [
+	{ id: 1, output: "Café", text: "Un café" },
+	{ id: 2, output: "Presse", text: "Vente de presse" },
+	{ id: 3, output: "Supérette", text: "Une supérette" },
+	{
+		id: 4,
+		output: "Distributeur",
+		text: "Un distributeur de boissons/nourriture",
+	},
+	{ id: 5, output: "Proximité", text: "Un commerce de proximité --> précisez" },
+	{ id: 6, output: "Autre", text: "Autres --> précisez" },
+];
+
 export {
 	sexes,
 	zone,
@@ -153,4 +210,8 @@ export {
 	commerces,
 	csp,
 	nv_motif_presence,
+	nv_bus_car_diffusion,
+	nv_bus_car_rabattement,
+	nv_services,
+	nv_commerces,
 };

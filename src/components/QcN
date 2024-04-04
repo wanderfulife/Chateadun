@@ -13,16 +13,16 @@
 <!-- QCo10 - CSP -->
 <!-- QCo11 - Age -->
 <!-- QNV1 - NV_Motif_Présence -->
-Precision Motif_Presence_NV
-QNV1A - NV_Bus_Car_Diffusion
-Précision NV_Bus_Car_Diffusion
-QNV1B - NV_Bus_Car_Rabattement
-Précision NV_Bus_Car_Rabattement
-QNV6 - NV_Services
-Précision NV_Services
-QNV7 - NV_Commerces
-Précision NV_Commerces
-QNV8 - NV_Attentes_Gare
+<!-- Precision Motif_Presence_NV -->
+<!-- QNV1A - NV_Bus_Car_Diffusion -->
+<!-- Précision NV_Bus_Car_Diffusion -->
+<!-- QNV1B - NV_Bus_Car_Rabattement -->
+<!-- Précision NV_Bus_Car_Rabattement -->
+<!-- QNV6 - NV_Services
+Précision NV_Services -->
+<!-- QNV7 - NV_Commerces
+Précision NV_Commerces -->
+<!-- QNV8 - NV_Attentes_Gare -->
 QP1 - P_Gare_Destination
 QP2 - P_Intermodalite_rabattement
 Précision P_Intermodalite_rabattement
