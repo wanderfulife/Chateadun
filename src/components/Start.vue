@@ -117,18 +117,17 @@
 			<div>
 				<CommuneSelector v-model="Commune_residence" />
 			</div>
-			<button v-if="Commune_residence && Commune_residence != 'CHATEAUDUN - 28088'" @click="next"
-				class="btn-next">Suivant</button>
+			<div id="QCo9A" v-if="Commune_residence === 'CHATEAUDUN - 28088'">
+				<!--v-if=" level===12 && Commune_residence==='Chateaudun' -->
+				<h1>Précisez de quelle rue à Châteaudun ?</h1>
+				<input class="form-control" type="text" v-model="Rue_résidence" placeholder="Precisions">
+				<button v-if="Rue_résidence" @click="next" class="btn-next">Suivant</button>
+			</div>
+			<button v-if="Commune_residence != 'CHATEAUDUN - 28088'" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo9A" v-if="Commune_residence === 'CHATEAUDUN - 28088'">
-			<!--v-if=" level===12 && Commune_residence==='Chateaudun' -->
-			<h1>Précisez de quelle rue à Châteaudun ?</h1>
-			<input class="form-control" type="text" v-model="Rue_résidence" placeholder="Precisions">
-			<button v-if="Rue_résidence" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
+
 
 		<div id="QCo10" v-if="level === 12">
 			<h1>Quelle est votre profession?</h1>
@@ -230,6 +229,7 @@
 			<button v-if="P_Gare_Destination" @click="next" class="btn-fin">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
+
 		<div id="QP2" v-if="level === 21">
 			<h1>Comment êtes-vous arrivé(e) en gare de Châteaudun ?</h1>
 			<select v-model="P_Intermodalite_rabattement" class="form-control">
@@ -306,22 +306,46 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP3" v-if="level === 0">
+		<div id="QP3" v-if="level === 27">
 			<h1>Juste avant d'arriver en gare, êtes vous parti(e) de Châteaudun ou d'une autre commune ?</h1>
-			<div>
-				<CommuneSelector v-model="P_Origine_commune" />
+			<select v-model="P_Origine_commune" class="form-control">
+				<option v-for="option in p_origine_commune" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<div v-if="P_Origine_commune === 'Autre'">
+				<CommuneSelector v-model="Précision_P_Origine_commune" />
 			</div>
-			<button v-if="P_Origine_commune && P_Origine_commune != 'CHATEAUDUN - 28088'" @click="next"
-				class="btn-next">Suivant</button>
+			<div id="QP3A" v-if="P_Origine_commune === 'Châteaudun'">
+				<h1>Précisez de quelle rue à Châteaudun ?</h1>
+				<input class="form-control" type="text" v-model="P_Origine_rue" placeholder="Precisions">
+			</div>
+			<button v-if="P_Origine_commune && P_Origine_rue || P_Origine_commune && Précision_P_Origine_commune"
+				@click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP3A" v-if="P_Origine_commune === 'CHATEAUDUN - 28088'">
-			<h1>Précisez de quelle rue à Châteaudun ?</h1>
-			<input class="form-control" type="text" v-model="P_Origine_rue" placeholder="Precisions">
-			<button v-if="P_Origine_rue" @click="next" class="btn-next">Suivant</button>
+		<div id="QA1" v-if="level === 28">
+			<h1>Quelle a été votre gare de départ ?</h1>
+			<GareSelector v-model="A_Gare_Origine" />
+			<input id="Autre" class="form-control" type="text" v-model="A_Gare_Origine"
+				placeholder="Gare Internationale">
+			<button v-if="A_Gare_Origine" @click="next" class="btn-fin">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
 		</div>
 
+		<div id="QA2" v-if="level === 29">
+			<h1>Comment êtes-vous arrivé(e) en gare de Châteaudun ?</h1>
+			<select v-model="A_Intermodalite_diffusion" class="form-control">
+				<option v-for="option in a_intermodalite_diffusion" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="A_Intermodalite_diffusion === 'Autre'" class="form-control" type="text"
+				v-model="Precision_A_Intermodalite_diffusion" placeholder="Precisions">
+			<button v-if="A_Intermodalite_diffusion" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
 
 		<div v-if="level > 1">
 			<button @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
@@ -330,6 +354,8 @@
 		<img class="logo" src="../assets/Alycelogo.webp" alt="Logo Alyce">
 		<button class="btn-fin" @click="downloadData">download DATA</button>
 	</div>
+
+
 
 	<!--  
 		<div v-if="Usager_train === 'Non-usager' && level === 4">
@@ -425,7 +451,6 @@
 				<h1>Quelle est votre commune de résidence ?</h1>
 			<CommuneSelector v-model="Commune_residence" />
 			-->
-
 </template>
 
 <script setup>
@@ -435,7 +460,8 @@ import {
 	nv_bus_car_diffusion, nv_bus_car_rabattement, nv_services, nv_commerces,
 	p_intermodalite_rabattement, p_detail_stationnement_rabattement,
 	p_detail_depose_rabattement, p_detail_bus_car, p_detail_velo,
-	p_detail_trottinette
+	p_detail_trottinette, p_origine_commune, a_intermodalite_diffusion,
+
 } from "./reponses";
 import GareSelector from "./GareSelector.vue";
 import CommuneSelector from './CommuneSelector.vue';
@@ -488,6 +514,10 @@ const P_Detail_trottinette = ref('');
 const Precision_P_Detail_trottinette = ref('');
 const P_Origine_commune = ref('');
 const P_Origine_rue = ref('');
+const Précision_P_Origine_commune = ref('');
+const A_Gare_Origine = ref('');
+const A_Intermodalite_diffusion = ref('');
+const Precision_A_Intermodalite_diffusion = ref('');
 
 
 
@@ -558,6 +588,13 @@ const submitSurvey = async () => {
 		Precision_P_Detail_trottinette: Precision_P_Detail_trottinette.value,
 		P_Origine_commune: P_Origine_commune.value,
 		P_Origine_rue: P_Origine_rue.value,
+		Précision_P_Origine_commune: Précision_P_Origine_commune.value,
+		A_Gare_Origine: A_Gare_Origine.value,
+		A_Intermodalite_diffusion: A_Intermodalite_diffusion.value,
+		Precision_A_Intermodalite_diffusion: Precision_A_Intermodalite_diffusion.value,
+
+		
+
 
 	});
 	startDate.value = "";
@@ -602,6 +639,13 @@ const submitSurvey = async () => {
 	Precision_P_Detail_trottinette.value = "";
 	P_Origine_commune.value = "";
 	P_Origine_rue.value = "";
+	Précision_P_Origine_commune.value = "";
+	A_Gare_Origine.value = "";
+	A_Intermodalite_diffusion.value = "";
+	Precision_A_Intermodalite_diffusion.value = "";
+
+	
+	
 
 
 };
@@ -661,6 +705,10 @@ const downloadData = async () => {
 			Precision_P_Detail_trottinette: "Precision_P_Detail_trottinette",
 			P_Origine_commune: "P_Origine_commune",
 			P_Origine_rue: "P_Origine_rue",
+			Précision_P_Origine_commune: "Précision_P_Origine_commune",
+			A_Gare_Origine: "A_Gare_Origine",
+			A_Intermodalite_diffusion: "A_Intermodalite_diffusion",
+			Precision_A_Intermodalite_diffusion: "Precision_A_Intermodalite_diffusion",
 
 		};
 
@@ -719,6 +767,11 @@ const downloadData = async () => {
 				Precision_P_Detail_trottinette: docData.Precision_P_Detail_trottinette || "",
 				P_Origine_commune: docData.P_Origine_commune || "",
 				P_Origine_rue: docData.P_Origine_rue || "",
+				Précision_P_Origine_commune: docData.Précision_P_Origine_commune || "",
+				A_Gare_Origine: docData.A_Gare_Origine || "",
+				A_Intermodalite_diffusion: docData.A_Intermodalite_diffusion || "",
+				Precision_A_Intermodalite_diffusion: docData.Precision_A_Intermodalite_diffusion || "",
+
 
 			};
 			data.push(mappedData);

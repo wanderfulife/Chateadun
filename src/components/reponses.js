@@ -211,6 +211,21 @@ const p_intermodalite_rabattement = [
 	{ id: 10, output: "Autre", text: "Autre -> précisez :" },
 ];
 
+
+
+const a_intermodalite_diffusion = [
+	{ id: 1, output: "Pied", text: "A pied exclusivement" },
+	{ id: 2, output: "Conducteur", text: "Voiture conducteur" },
+	{ id: 3, output: "Passager", text: "Voiture passager" },
+	{ id: 4, output: "Location", text: "Voiture de location" },
+	{ id: 5, output: "Bus", text: "Bus ou Car" },
+	{ id: 6, output: "Moto", text: "En scooter/moto" },
+	{ id: 7, output: "Taxi", text: "Taxi" },
+	{ id: 8, output: "Vélo", text: "Vélo" },
+	{ id: 9, output: "Trottinette", text: "Trottinette" },
+	{ id: 10, output: "Autre", text: "Autre -> précisez :" },
+];
+
 const p_detail_stationnement_rabattement = [
 	{
 		id: 1,
@@ -266,6 +281,11 @@ const p_detail_trottinette = [
 	{ id: 3, output: "Autre", text: "Autre - précisez" },
 ];
 
+const p_origine_commune = [
+	{ id: 1, output: "Châteaudun", text: "Châteaudun" },
+	{ id: 2, output: "Autre", text: "Autre commune : précisez" },
+];
+
 export {
 	sexes,
 	zone,
@@ -287,4 +307,6 @@ export {
 	p_detail_bus_car,
 	p_detail_velo,
 	p_detail_trottinette,
+	p_origine_commune,
+	a_intermodalite_diffusion,
 };

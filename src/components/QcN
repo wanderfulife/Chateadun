@@ -36,11 +36,11 @@ Précision P_Detail_vélo -->
 <!-- QP2E - P_Detail_trottinette
 Précision P_Detail_trottinette -->
 <!-- QP3 - P_Origine_commune -->
-Précision P_Origine_commune
+<!-- Précision_P_Origine_commune -->
 <!-- QP3A - P_Origine_rue -->
-QA1 - A_Gare_Origine
-QA2 - A_Intermodalite_Diffusion
-Précision A_Intermodalite_Diffusion
+<!-- QA1 - A_Gare_Origine -->
+<!-- QA2 - A_Intermodalite_Diffusion
+Précision_A_Intermodalite_Diffusion -->
 QA2A - A_Detail_stationnement_Diffusion
 Précision A_Detail_stationnement_Diffusion
 QA2B - A_Detail_Reprise_Diffusion
