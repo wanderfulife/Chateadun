@@ -211,6 +211,61 @@ const p_intermodalite_rabattement = [
 	{ id: 10, output: "Autre", text: "Autre -> précisez :" },
 ];
 
+const p_detail_stationnement_rabattement = [
+	{
+		id: 1,
+		output: "Gare_N",
+		text: "Parking de la gare au Nord des arrêts de Bus",
+	},
+	{
+		id: 2,
+		output: "Gare_S",
+		text: "Parking de la gare côté Sud proche du Centre de santé au travail",
+	},
+	{ id: 3, output: "Médiathèque", text: "Parking de la Médiathèque" },
+	{ id: 4, output: "Bd_Grindelle", text: "Boulevard Grindelle" },
+	{
+		id: 5,
+		output: "Halle",
+		text: "Parking de la Halle de l'autre côté des voies ferrées",
+	},
+	{ id: 6, output: "Autre", text: "Autre : préciser" },
+];
+
+const p_detail_depose_rabattement = [
+	{ id: 1, output: "Déposé", text: "Déposé par une voiture repartie" },
+	{
+		id: 2,
+		output: "Covoitureur",
+		text: "Covoitureur d'une voiture stationnée",
+	},
+];
+
+const p_detail_bus_car = [
+	{ id: 1, output: "B1", text: "C'Bus 1" },
+	{ id: 2, output: "B2", text: "C'Bus 2" },
+	{ id: 3, output: "B3", text: "C'Bus 3" },
+	{ id: 4, output: "C3", text: "Car REMI 3" },
+	{ id: 5, output: "C3A", text: "Car REMI 3A" },
+	{ id: 6, output: "C9", text: "Car REMI 9" },
+	{ id: 7, output: "C9A", text: "Car REMI 9A" },
+	{ id: 8, output: "C32A", text: "Car REMI 32A" },
+	{ id: 9, output: "C32B", text: "Car REMI 32B" },
+	{ id: 10, output: "C434", text: "Car REMI 434" },
+	{ id: 10, output: "Autre", text: "Autre - précisez" },
+];
+
+const p_detail_velo = [
+	{ id: 1, output: "Arceaux", text: "Sur les arceaux devant la gare" },
+	{ id: 2, output: "Train", text: "Je prends mon vélo dans le train" },
+	{ id: 3, output: "Autre", text: "Autre - précisez" },
+];
+const p_detail_trottinette = [
+	{ id: 1, output: "Arceaux", text: "Sur les arceaux devant la gare" },
+	{ id: 2, output: "Train", text: "Je prends mon vélo dans le train" },
+	{ id: 3, output: "Autre", text: "Autre - précisez" },
+];
+
 export {
 	sexes,
 	zone,
@@ -227,4 +282,9 @@ export {
 	nv_services,
 	nv_commerces,
 	p_intermodalite_rabattement,
+	p_detail_stationnement_rabattement,
+	p_detail_depose_rabattement,
+	p_detail_bus_car,
+	p_detail_velo,
+	p_detail_trottinette,
 };

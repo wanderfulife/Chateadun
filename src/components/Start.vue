@@ -117,9 +117,12 @@
 			<div>
 				<CommuneSelector v-model="Commune_residence" />
 			</div>
+			<button v-if="Commune_residence && Commune_residence != 'CHATEAUDUN - 28088'" @click="next"
+				class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo9A" v-if="level === 11 && Commune_residence === 'CHATEAUDUN - 28088'">
+		<div id="QCo9A" v-if="Commune_residence === 'CHATEAUDUN - 28088'">
 			<!--v-if=" level===12 && Commune_residence==='Chateaudun' -->
 			<h1>Précisez de quelle rue à Châteaudun ?</h1>
 			<input class="form-control" type="text" v-model="Rue_résidence" placeholder="Precisions">
@@ -171,7 +174,7 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QNV1B" v-if="level === 15">
+		<div id="QNV1B" v-if="level === 16">
 			<h1>Avec quelle ligne de bus ou de car êtes-vous arrivé en gare de Châteaudun ?</h1>
 			<select v-model="NV_Bus_Car_Rabattement" class="form-control">
 				<option v-for="option in nv_bus_car_rabattement" :key="option.id" :value="option.output">
@@ -184,7 +187,7 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QNV6" v-if="level === 16">
+		<div id="QNV6" v-if="level === 17">
 			<h1>Quels services souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
 			<select v-model="NV_Service" class="form-control">
 				<option v-for="option in nv_services" :key="option.id" :value="option.output">
@@ -197,7 +200,7 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCNV7" v-if="level === 17">
+		<div id="QCNV7" v-if="level === 18">
 			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
 			<select v-model="NV_Commerces" class="form-control">
 				<option v-for="option in nv_commerces" :key="option.id" :value="option.output">
@@ -210,7 +213,7 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QNV8" v-if="level === 18">
+		<div id="QNV8" v-if="level === 19">
 			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
 				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
 			<input class="form-control" type="text" v-model="NV_Attentes_Gare" placeholder="Precisions">
@@ -219,7 +222,7 @@
 		</div>
 
 		<!-- v-if="Type_Usager === 'Arrivant' -->
-		<div id="QP1" v-if="Type_Usager === 'Partant' && level === 19">
+		<div id="QP1" v-if="level === 20">
 			<h1>Quelle sera votre gare de destination? </h1>
 			<GareSelector v-model="P_Gare_Destination" />
 			<input id="Autre" class="form-control" type="text" v-model="P_Gare_Destination"
@@ -227,7 +230,7 @@
 			<button v-if="P_Gare_Destination" @click="next" class="btn-fin">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
-		<div id="QP2" v-if="level === 20">
+		<div id="QP2" v-if="level === 21">
 			<h1>Comment êtes-vous arrivé(e) en gare de Châteaudun ?</h1>
 			<select v-model="P_Intermodalite_rabattement" class="form-control">
 				<option v-for="option in p_intermodalite_rabattement" :key="option.id" :value="option.output">
@@ -239,6 +242,86 @@
 			<button v-if="P_Intermodalite_rabattement" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
+
+		<div id="QP2A" v-if="level === 22">
+			<h1>Où est stationné le véhicule ?</h1>
+			<select v-model="P_Detail_stationnement_rabattement" class="form-control">
+				<option v-for="option in p_detail_stationnement_rabattement" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="P_Detail_stationnement_rabattement === 'Autre'" class="form-control" type="text"
+				v-model="Precision_P_Detail_stationnement_rabattement" placeholder="Precisions">
+			<button v-if="P_Detail_stationnement_rabattement" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QP2B" v-if="level === 23">
+			<h1>Est-ce que la voiture qui vous a déposé est repartie ou s'est stationnée ?</h1>
+			<select v-model="P_Detail_depose_rabattement" class="form-control">
+				<option v-for="option in p_detail_depose_rabattement" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<button v-if="P_Detail_depose_rabattement" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QP2C" v-if="level === 24">
+			<h1>Avec quelle ligne de bus ou de car ?</h1>
+			<select v-model="P_Detail_Bus_Car" class="form-control">
+				<option v-for="option in p_detail_bus_car" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="P_Detail_Bus_Car === 'Autre'" class="form-control" type="text"
+				v-model="Precision_P_Detail_Bus_Car" placeholder="Precisions">
+			<button v-if="P_Detail_Bus_Car" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QP2D" v-if="level === 25">
+			<h1>Où stationnez-vous votre vélo?</h1>
+			<select v-model="P_Detail_velo" class="form-control">
+				<option v-for="option in p_detail_velo" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="P_Detail_velo === 'Autre'" class="form-control" type="text" v-model="Precision_P_Detail_velo"
+				placeholder="Precisions">
+			<button v-if="P_Detail_velo" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QP2E" v-if="level === 26">
+			<h1>Où stationnez-vous votre trottinette?</h1>
+			<select v-model="P_Detail_trottinette" class="form-control">
+				<option v-for="option in p_detail_trottinette" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="P_Detail_trottinette === 'Autre'" class="form-control" type="text"
+				v-model="Precision_P_Detail_trottinette" placeholder="Precisions">
+			<button v-if="P_Detail_trottinette" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QP3" v-if="level === 0">
+			<h1>Juste avant d'arriver en gare, êtes vous parti(e) de Châteaudun ou d'une autre commune ?</h1>
+			<div>
+				<CommuneSelector v-model="P_Origine_commune" />
+			</div>
+			<button v-if="P_Origine_commune && P_Origine_commune != 'CHATEAUDUN - 28088'" @click="next"
+				class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QP3A" v-if="P_Origine_commune === 'CHATEAUDUN - 28088'">
+			<h1>Précisez de quelle rue à Châteaudun ?</h1>
+			<input class="form-control" type="text" v-model="P_Origine_rue" placeholder="Precisions">
+			<button v-if="P_Origine_rue" @click="next" class="btn-next">Suivant</button>
+		</div>
+
 
 		<div v-if="level > 1">
 			<button @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
@@ -347,7 +430,13 @@
 
 <script setup>
 import { ref } from "vue";
-import { sexes, zone, usagers, typeUsagers, motif, frequence, services, commerces, csp, nv_motif_presence, nv_bus_car_diffusion, nv_bus_car_rabattement, nv_services, nv_commerces, p_intermodalite_rabattement } from "./reponses";
+import {
+	sexes, zone, usagers, typeUsagers, motif, frequence, services, commerces, csp, nv_motif_presence,
+	nv_bus_car_diffusion, nv_bus_car_rabattement, nv_services, nv_commerces,
+	p_intermodalite_rabattement, p_detail_stationnement_rabattement,
+	p_detail_depose_rabattement, p_detail_bus_car, p_detail_velo,
+	p_detail_trottinette
+} from "./reponses";
 import GareSelector from "./GareSelector.vue";
 import CommuneSelector from './CommuneSelector.vue';
 import { db } from "../firebaseConfig";
@@ -388,6 +477,18 @@ const Precision_NV_Commerces = ref('');
 const P_Gare_Destination = ref('');
 const P_Intermodalite_rabattement = ref('');
 const Precision_P_Intermodalite_rabattement = ref('');
+const P_Detail_stationnement_rabattement = ref('');
+const Precision_P_Detail_stationnement_rabattement = ref('');
+const P_Detail_depose_rabattement = ref('');
+const P_Detail_Bus_Car = ref('');
+const Precision_P_Detail_Bus_Car = ref('');
+const P_Detail_velo = ref('');
+const Precision_P_Detail_velo = ref('');
+const P_Detail_trottinette = ref('');
+const Precision_P_Detail_trottinette = ref('');
+const P_Origine_commune = ref('');
+const P_Origine_rue = ref('');
+
 
 
 const startSurvey = () => {
@@ -446,7 +547,17 @@ const submitSurvey = async () => {
 		P_Gare_Destination: P_Gare_Destination.value,
 		P_Intermodalite_rabattement: P_Intermodalite_rabattement.value,
 		Precision_P_Intermodalite_rabattement: Precision_P_Intermodalite_rabattement.value,
-
+		P_Detail_stationnement_rabattement: P_Detail_stationnement_rabattement.value,
+		Precision_P_Detail_stationnement_rabattement: Precision_P_Detail_stationnement_rabattement.value,
+		P_Detail_depose_rabattement: P_Detail_depose_rabattement.value,
+		P_Detail_Bus_Car: P_Detail_Bus_Car.value,
+		Precision_P_Detail_Bus_Car: Precision_P_Detail_Bus_Car.value,
+		P_Detail_velo: P_Detail_velo.value,
+		Precision_P_Detail_velo: Precision_P_Detail_velo.value,
+		P_Detail_trottinette: P_Detail_trottinette.value,
+		Precision_P_Detail_trottinette: Precision_P_Detail_trottinette.value,
+		P_Origine_commune: P_Origine_commune.value,
+		P_Origine_rue: P_Origine_rue.value,
 
 	});
 	startDate.value = "";
@@ -480,6 +591,18 @@ const submitSurvey = async () => {
 	P_Gare_Destination.value = "";
 	P_Intermodalite_rabattement.value = "";
 	Precision_P_Intermodalite_rabattement.value = "";
+	P_Detail_stationnement_rabattement.value = "";
+	Precision_P_Detail_stationnement_rabattement.value = "";
+	P_Detail_depose_rabattement.value = "";
+	P_Detail_Bus_Car.value = "";
+	Precision_P_Detail_Bus_Car.value = "";
+	P_Detail_velo.value = "";
+	Precision_P_Detail_velo.value = "";
+	P_Detail_trottinette.value = "";
+	Precision_P_Detail_trottinette.value = "";
+	P_Origine_commune.value = "";
+	P_Origine_rue.value = "";
+
 
 };
 
@@ -526,7 +649,18 @@ const downloadData = async () => {
 			NV_Attentes_Gare: "NV_Attentes_Gare",
 			P_Gare_Destination: "P_Gare_Destination",
 			P_Intermodalite_rabattement: "P_Intermodalite_rabattement",
-			Precision_P_Intermodalite_rabattement: "Precision_P_Intermodalite_rabattement"
+			Precision_P_Intermodalite_rabattement: "Precision_P_Intermodalite_rabattement",
+			P_Detail_stationnement_rabattement: "P_Detail_stationnement_rabattement",
+			Precision_P_Detail_stationnement_rabattement: "Precision_P_Detail_stationnement_rabattement",
+			P_Detail_depose_rabattement: "P_Detail_depose_rabattement",
+			P_Detail_Bus_Car: "P_Detail_Bus_Car",
+			Precision_P_Detail_Bus_Car: "Precision_P_Detail_Bus_Car",
+			P_Detail_velo: "P_Detail_velo",
+			Precision_P_Detail_velo: "Precision_P_Detail_velo",
+			P_Detail_trottinette: "P_Detail_trottinette",
+			Precision_P_Detail_trottinette: "Precision_P_Detail_trottinette",
+			P_Origine_commune: "P_Origine_commune",
+			P_Origine_rue: "P_Origine_rue",
 
 		};
 
@@ -573,7 +707,19 @@ const downloadData = async () => {
 				NV_Attentes_Gare: docData.NV_Attentes_Gare || "",
 				P_Gare_Destination: docData.P_Gare_Destination || "",
 				P_Intermodalite_rabattement: docData.P_Intermodalite_rabattement || "",
-				Precision_P_Intermodalite_rabattement: docData.Precision_P_Intermodalite_rabattement || ""
+				Precision_P_Intermodalite_rabattement: docData.Precision_P_Intermodalite_rabattement || "",
+				P_Detail_stationnement_rabattement: docData.P_Detail_stationnement_rabattement || "",
+				Precision_P_Detail_stationnement_rabattement: docData.Precision_P_Detail_stationnement_rabattement || "",
+				P_Detail_depose_rabattement: docData.P_Detail_depose_rabattement || "",
+				P_Detail_Bus_Car: docData.P_Detail_Bus_Car || "",
+				Precision_P_Detail_Bus_Car: docData.Precision_P_Detail_Bus_Car || "",
+				P_Detail_velo: docData.P_Detail_velo || "",
+				Precision_P_Detail_velo: docData.Precision_P_Detail_velo || "",
+				P_Detail_trottinette: docData.P_Detail_trottinette || "",
+				Precision_P_Detail_trottinette: docData.Precision_P_Detail_trottinette || "",
+				P_Origine_commune: docData.P_Origine_commune || "",
+				P_Origine_rue: docData.P_Origine_rue || "",
+
 			};
 			data.push(mappedData);
 

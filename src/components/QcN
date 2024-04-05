@@ -26,18 +26,18 @@ Précision NV_Commerces -->
 <!-- QP1 - P_Gare_Destination -->
 <!-- QP2 - P_Intermodalite_rabattement -->
 <!-- Précision P_Intermodalite_rabattement -->
-QP2A - P_Detail_stationnement_rabattement
-Précision P_Detail_stationnement_rabattement
-QP2B - P_Detail_Depose_rabattement
-QP2C - P_Detail_Bus_Car
-Précision P_Detail_Bus_Car
-QP2D - P_Detail_vélo
-Précision P_Detail_vélo
-QP2E - P_Detail_trottinette
-Précision P_Detail_trottinette
-QP3 - P_Origine_commune
+<!-- QP2A - P_Detail_stationnement_rabattement
+Précision P_Detail_stationnement_rabattement -->
+<!-- QP2B - P_Detail_Depose_rabattement -->
+<!-- QP2C - P_Detail_Bus_Car
+Précision P_Detail_Bus_Car -->
+<!-- QP2D - P_Detail_vélo
+Précision P_Detail_vélo -->
+<!-- QP2E - P_Detail_trottinette
+Précision P_Detail_trottinette -->
+<!-- QP3 - P_Origine_commune -->
 Précision P_Origine_commune
-QP3A - P_Origine_rue
+<!-- QP3A - P_Origine_rue -->
 QA1 - A_Gare_Origine
 QA2 - A_Intermodalite_Diffusion
 Précision A_Intermodalite_Diffusion
