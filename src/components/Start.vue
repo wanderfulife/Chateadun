@@ -543,10 +543,14 @@
 		<button class="btn-fin" @click="downloadData">download DATA</button>
 	</div>
 
+	<div>
+		<span style="margin-left: 10px;">Nombre de questionnaires : {{ docCount }}</span>
+	</div>
+
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import {
 	sexes, zone, usagers, typeUsagers, motif, frequence, services, commerces, csp, nv_motif_presence,
 	nv_bus_car_diffusion, nv_bus_car_rabattement, nv_services, nv_commerces,
@@ -562,6 +566,7 @@ import { db } from "../firebaseConfig";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import * as XLSX from "xlsx";
 
+const docCount = ref(0);
 const surveyCollectionRef = collection(db, "Chateadun");
 const level = ref(0);
 const startDate = ref('');
@@ -643,10 +648,18 @@ const back = () => {
 	level.value--;
 }
 
+const getDocCount = async () => {
+	try {
+		const querySnapshot = await getDocs(surveyCollectionRef);
+		docCount.value = querySnapshot.size;
+	} catch (error) {
+		console.error("Error getting document count:", error);
+	}
+};
 
+onMounted(getDocCount);
 
 const submitSurvey = async () => {
-	level.value = 1;
 	await addDoc(surveyCollectionRef, {
 		HEURE_DEBUT: startDate.value,
 		SEXE: SEXE.value,
@@ -712,8 +725,8 @@ const submitSurvey = async () => {
 		A_Destination_rue: A_Destination_rue.value,
 		C_Gare_Origine: C_Gare_Origine.value,
 		C_Gare_Destination: C_Gare_Destination.value,
-
 	});
+	level.value = 1;
 	startDate.value = "";
 	SEXE.value = "";
 	ZONE.value = "";
@@ -774,7 +787,7 @@ const submitSurvey = async () => {
 	A_Destination_rue.value = "";
 	C_Gare_Origine.value = "";
 	C_Gare_Destination.value = "";
-
+	getDocCount();
 };
 
 const downloadData = async () => {
@@ -973,6 +986,7 @@ body {
 h1 {
 	text-align: center;
 	color: #4caf50;
+	font-size: 18px;
 }
 
 h2 {
