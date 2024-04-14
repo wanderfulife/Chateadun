@@ -41,17 +41,17 @@ Précision P_Detail_trottinette -->
 <!-- QA1 - A_Gare_Origine -->
 <!-- QA2 - A_Intermodalite_Diffusion
 Précision_A_Intermodalite_Diffusion -->
-QA2A - A_Detail_stationnement_Diffusion
+<!-- QA2A - A_Detail_stationnement_Diffusion
 Précision A_Detail_stationnement_Diffusion
-QA2B - A_Detail_Reprise_Diffusion
-QA2C - A_Detail_bus
-Précision A_Detail_bus
-QA2D - A_Detail_vélo
-Précision A_Detail_vélo
-QA2E - A_Detail_trottinette
-Précision A_Detail_trottinette
-QA3 - A_Destination_commune
-Précision A_Destination_commune
-QA3A - A_Destination_rue
-QC1 - C_Gare_Origine
-QC2 - C_Gare_Destination
+QA2B - A_Detail_Reprise_Diffusion -->
+<!-- QA2C - A_Detail_bus -->
+<!-- Précision A_Detail_bus -->
+<!-- QA2D - A_Detail_vélo -->
+<!-- Précision A_Detail_vélo -->
+<!-- QA2E - A_Detail_trottinette -->
+<!-- Précision A_Detail_trottinette -->
+<!-- QA3 - A_Destination_commune -->
+<!-- Précision A_Destination_commune -->
+<!-- QA3A - A_Destination_rue -->
+<!-- QC1 - C_Gare_Origine -->
+<!-- QC2 - C_Gare_Destination -->

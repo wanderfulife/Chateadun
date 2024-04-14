@@ -43,6 +43,7 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
+		<!-- USAGER -->
 		<div id="QCo1" v-if="level === 5 && Usager_train === 'Usager'">
 			<h1>Par rapport à votre voyage en train :</h1>
 			<select v-model="Type_Usager" class="form-control">
@@ -54,174 +55,30 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo4" v-if="level === 6">
-			<h1>Quel est le motif de votre déplacement ?</h1>
-			<select v-model="Motif" class="form-control">
-				<option v-for="option in motif" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="Motif === 'Autre'" class="form-control" type="text" v-model="Precision_Motif"
-				placeholder="Precisions">
-			<button v-if="Motif" @click="next" class="btn-next">Suivant</button>
+
+		<!-- v-if="Type_Usager === 'Correspondant' -->
+		<div id="QC1" v-if="level === 6 && Type_Usager === 'Correspondant'">
+			<h1>Quelle a été votre gare de départ ?</h1>
+			<GareSelector v-model="C_Gare_Origine" />
+			<input id="Autre" class="form-control" type="text" v-model="C_Gare_Origine"
+				placeholder="Gare Internationale">
+			<button v-if="C_Gare_Origine" @click="next" class="btn-fin">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo5" v-if="level === 7">
-			<h1>A quelle fréquence venez-vous dans cette gare?</h1>
-			<select v-model="Frequence" class="form-control">
-				<option v-for="option in frequence" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<button v-if="Frequence" @click="next" class="btn-next">Suivant</button>
+		<div id="QC2" v-if="level === 7 && Type_Usager === 'Correspondant'">
+			<h1>Quelle sera votre gare de destination? </h1>
+			<GareSelector v-model="C_Gare_Destination" />
+			<input id="Autre" class="form-control" type="text" v-model="C_Gare_Destination"
+				placeholder="Gare Internationale">
+			<button v-if="C_Gare_Destination" @click="next" class="btn-fin">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo6" v-if="level === 8">
-			<h1>Quels services souhaiteriez-vous trouver en gare ?</h1>
-			<select v-model="Service" class="form-control">
-				<option v-for="option in services" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="Service === 'Autre'" class="form-control" type="text" v-model="Precision_Service"
-				placeholder="Precisions">
-			<button v-if="Service" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QCo7" v-if="level === 9">
-			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare</h1>
-			<select v-model="Commerces" class="form-control">
-				<option v-for="option in commerces" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="Commerces === 'Autre' || Commerces === 'Proximité'" class="form-control" type="text"
-				v-model="Precision_Commerces" placeholder="Precisions">
-			<button v-if="Commerces" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QCo8" v-if="level === 10">
-			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
-				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
-			<input class="form-control" type="text" v-model="Attentes_Gare" placeholder="Precisions">
-			<button v-if="Attentes_Gare" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QCo9" v-if="level === 11">
-			<h1>Quelle est votre commune de résidence ?</h1>
-			<div>
-				<CommuneSelector v-model="Commune_residence" />
-			</div>
-			<div id="QCo9A" v-if="Commune_residence === 'CHATEAUDUN - 28088'">
-				<!--v-if=" level===12 && Commune_residence==='Chateaudun' -->
-				<h1>Précisez de quelle rue à Châteaudun ?</h1>
-				<input class="form-control" type="text" v-model="Rue_résidence" placeholder="Precisions">
-				<button v-if="Rue_résidence" @click="next" class="btn-next">Suivant</button>
-			</div>
-			<button v-if="Commune_residence != 'CHATEAUDUN - 28088'" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
+		<!-- v-if="Type_Usager === 'Partant' -->
 
 
-
-		<div id="QCo10" v-if="level === 12">
-			<h1>Quelle est votre profession?</h1>
-			<select v-model="CSP" class="form-control">
-				<option v-for="option in csp" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<button v-if="CSP" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QCo11" v-if="level === 13">
-			<h1>Quel est votre âge ?</h1>
-			<input class=" form-control" type="text" v-model="Age" placeholder="Precisions">
-			<button v-if="Age" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QNV1" v-if="level === 14">
-			<h1>Quelle est la raison de votre présence en gare ?</h1>
-			<select v-model="NV_MOTIF_PRESENCE" class="form-control">
-				<option v-for="option in nv_motif_presence" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="NV_MOTIF_PRESENCE === 'Autre'" class="form-control" type="text"
-				v-model="Precision_NV_MOTIF_PRESENCE" placeholder="Precisions">
-			<button v-if="NV_MOTIF_PRESENCE" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QNV1A" v-if="level === 15">
-			<h1>Quelle ligne de bus ou de car venez-vous prendre en gare de Châteaudun ?</h1>
-			<select v-model="NV_Bus_Car_Diffusion" class="form-control">
-				<option v-for="option in nv_bus_car_diffusion" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="NV_Bus_Car_Diffusion === 'Autre'" class="form-control" type="text"
-				v-model="Precision_NV_Bus_Car_Diffusion" placeholder="Precisions">
-			<button v-if="NV_Bus_Car_Diffusion" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QNV1B" v-if="level === 16">
-			<h1>Avec quelle ligne de bus ou de car êtes-vous arrivé en gare de Châteaudun ?</h1>
-			<select v-model="NV_Bus_Car_Rabattement" class="form-control">
-				<option v-for="option in nv_bus_car_rabattement" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="NV_Bus_Car_Rabattement === 'Autre'" class="form-control" type="text"
-				v-model="Precision_NV_Bus_Car_Rabattement" placeholder="Precisions">
-			<button v-if="NV_Bus_Car_Rabattement" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QNV6" v-if="level === 17">
-			<h1>Quels services souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
-			<select v-model="NV_Service" class="form-control">
-				<option v-for="option in nv_services" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="NV_Service === 'Autre'" class="form-control" type="text" v-model="Precision_NV_Service"
-				placeholder="Precisions">
-			<button v-if="NV_Service" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QCNV7" v-if="level === 18">
-			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
-			<select v-model="NV_Commerces" class="form-control">
-				<option v-for="option in nv_commerces" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="NV_Commerces === 'Autre' || Commerces === 'Proximité'" class="form-control" type="text"
-				v-model="Precision_NV_Commerces" placeholder="Precisions">
-			<button v-if="NV_Commerces" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<div id="QNV8" v-if="level === 19">
-			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
-				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
-			<input class="form-control" type="text" v-model="NV_Attentes_Gare" placeholder="Precisions">
-			<button v-if="NV_Attentes_Gare" @click="next" class="btn-next">Suivant</button>
-			<button @click="back" class="btn-return">retour</button>
-		</div>
-
-		<!-- v-if="Type_Usager === 'Arrivant' -->
-		<div id="QP1" v-if="level === 20">
+		<div id="QP1" v-if="level === 6 && Type_Usager === 'Partant'">
 			<h1>Quelle sera votre gare de destination? </h1>
 			<GareSelector v-model="P_Gare_Destination" />
 			<input id="Autre" class="form-control" type="text" v-model="P_Gare_Destination"
@@ -230,7 +87,7 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP2" v-if="level === 21">
+		<div id="QP2" v-if="level === 7 && Type_Usager === 'Partant'">
 			<h1>Comment êtes-vous arrivé(e) en gare de Châteaudun ?</h1>
 			<select v-model="P_Intermodalite_rabattement" class="form-control">
 				<option v-for="option in p_intermodalite_rabattement" :key="option.id" :value="option.output">
@@ -243,7 +100,8 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP2A" v-if="level === 22">
+		<div id="QP2A"
+			v-if="(level === 8 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto')">
 			<h1>Où est stationné le véhicule ?</h1>
 			<select v-model="P_Detail_stationnement_rabattement" class="form-control">
 				<option v-for="option in p_detail_stationnement_rabattement" :key="option.id" :value="option.output">
@@ -256,7 +114,8 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP2B" v-if="level === 23">
+
+		<div id="QP2B" v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Passager'">
 			<h1>Est-ce que la voiture qui vous a déposé est repartie ou s'est stationnée ?</h1>
 			<select v-model="P_Detail_depose_rabattement" class="form-control">
 				<option v-for="option in p_detail_depose_rabattement" :key="option.id" :value="option.output">
@@ -267,7 +126,7 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP2C" v-if="level === 24">
+		<div id="QP2C" v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Bus'">
 			<h1>Avec quelle ligne de bus ou de car ?</h1>
 			<select v-model="P_Detail_Bus_Car" class="form-control">
 				<option v-for="option in p_detail_bus_car" :key="option.id" :value="option.output">
@@ -280,7 +139,8 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP2D" v-if="level === 25">
+
+		<div id="QP2D" v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Vélo'">
 			<h1>Où stationnez-vous votre vélo?</h1>
 			<select v-model="P_Detail_velo" class="form-control">
 				<option v-for="option in p_detail_velo" :key="option.id" :value="option.output">
@@ -293,7 +153,8 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP2E" v-if="level === 26">
+
+		<div id="QP2E" v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Trottinette'">
 			<h1>Où stationnez-vous votre trottinette?</h1>
 			<select v-model="P_Detail_trottinette" class="form-control">
 				<option v-for="option in p_detail_trottinette" :key="option.id" :value="option.output">
@@ -306,7 +167,9 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP3" v-if="level === 27">
+		<div id="QP3" v-if="((level === 8 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| (level === 9 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+	|| (level === 7 && Usager_train === 'Non-usager' && NV_MOTIF_PRESENCE === 'Partant-Bus')">
 			<h1>Juste avant d'arriver en gare, êtes vous parti(e) de Châteaudun ou d'une autre commune ?</h1>
 			<select v-model="P_Origine_commune" class="form-control">
 				<option v-for="option in p_origine_commune" :key="option.id" :value="option.output">
@@ -325,7 +188,11 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QA1" v-if="level === 28">
+
+		<!-- v-if="Type_Usager === 'Arrivant' -->
+
+
+		<div id="QA1" v-if="level === 6 && Type_Usager === 'Arrivant'">
 			<h1>Quelle a été votre gare de départ ?</h1>
 			<GareSelector v-model="A_Gare_Origine" />
 			<input id="Autre" class="form-control" type="text" v-model="A_Gare_Origine"
@@ -334,8 +201,8 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QA2" v-if="level === 29">
-			<h1>Comment êtes-vous arrivé(e) en gare de Châteaudun ?</h1>
+		<div id="QA2" v-if="level === 7 && Type_Usager === 'Arrivant'">
+			<h1>Comment partez-vous de la gare de Châteaudun ?</h1>
 			<select v-model="A_Intermodalite_diffusion" class="form-control">
 				<option v-for="option in a_intermodalite_diffusion" :key="option.id" :value="option.output">
 					{{ option.text }}
@@ -347,91 +214,211 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div v-if="level > 1">
-			<button @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
+
+		<div id="QA2A" v-if="(level === 8 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Conducteur'
+			|| A_Intermodalite_diffusion === 'Moto')">
+			<h1>Où est stationné le véhicule ?</h1>
+			<select v-model="A_Detail_Stationnement_Diffusion" class="form-control">
+				<option v-for="option in a_detail_stationnement_diffusion" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="A_Detail_Stationnement_Diffusion === 'Autre'" class="form-control" type="text"
+				v-model="Precision_A_Detail_Stationnement_Diffusion" placeholder="Precisions">
+			<button v-if="A_Detail_Stationnement_Diffusion" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
-		<img class="logo" src="../assets/Alycelogo.webp" alt="Logo Alyce">
-		<button class="btn-fin" @click="downloadData">download DATA</button>
-	</div>
 
 
-
-	<!--  
-		<div v-if="Usager_train === 'Non-usager' && level === 4">
-			<h1>Néanmoins à quelle fréquence allez-vous en gare de Sens ?</h1>
-			<select v-model="NU_Frequence" class="form-control">
-				<option v-for="option in nu_frequence" :key="option.id" :value="option.output">
+		<div id="QA2B" v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Passager'">
+			<h1>Est-ce que la voiture avec laquelle vous repartez vient spécifiquement vous cherchez ou était
+				déjà stationnée ?</h1>
+			<select v-model="A_Detail_Reprise_Diffusion" class="form-control">
+				<option v-for="option in a_detail_reprise_diffusion" :key="option.id" :value="option.output">
 					{{ option.text }}
 				</option>
 			</select>
-			<div v-if="NU_Frequence === '1ière' || NU_Frequence === 'Jamais'">
-				<button @click="submitSurvey" class="btn-fin">FINIR QUESTIONNAIRE</button>
-			</div>
-			<div
-				v-else-if="NU_Frequence === 'Ts les jrs' || NU_Frequence === '1-2 / smn' || NU_Frequence === 'Plrs / mois' || NU_Frequence === '-1 / mois' || NU_Frequence === 'Ts les ans'">
-				<h1>Lorsque vous allez en gare, utilisez-vous ce parking ?</h1>
-				<select v-model="NU_Usage_parking" class="form-control">
-					<option v-for="option in parking" :key="option.id" :value="option.output">
-						{{ option.text }}
-					</option>
-				</select>
-				<button @click="submitSurvey" class="btn-fin">FINIR QUESTIONNAIRE</button>
-			</div>
-			<button @click="back" class="btn-return">Retour</button>
+			<button v-if="A_Detail_Reprise_Diffusion" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div v-if="Usager_train === 'Usager' && level === 4">
-			<h1>Par rapport à votre venue en gare :</h1>
-			<select v-model="Type_Usager" class="form-control">
-				<option v-for="option in typeUsagers" :key="option.id" :value="option.output">
+		<div id="QA2C" v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Bus'">
+			<h1>Avec quelle ligne de bus ou de car ?</h1>
+			<select v-model="A_Detail_Bus_Car" class="form-control">
+				<option v-for="option in p_detail_bus_car" :key="option.id" :value="option.output">
 					{{ option.text }}
 				</option>
 			</select>
-			<input v-if="Type_Usager === 'Autre'" class="form-control" type="text" v-model="precision_Type_Usager"
+			<input v-if="A_Detail_Bus_Car === 'Autre'" class="form-control" type="text"
+				v-model="Precision_A_Detail_Bus_Car" placeholder="Precisions">
+			<button v-if="A_Detail_Bus_Car" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QA2D" v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Vélo'">
+			<h1>Où stationnez-vous votre vélo?</h1>
+			<select v-model="A_Detail_velo" class="form-control">
+				<option v-for="option in p_detail_velo" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="A_Detail_velo === 'Autre'" class="form-control" type="text" v-model="Precision_A_Detail_velo"
 				placeholder="Precisions">
-			<button v-if="Type_Usager" @click="next" class="btn-next">Suivant</button>
+			<button v-if="A_Detail_velo" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div v-if="Type_Usager === 'Partant' && level === 5">
-			<h1>Quelle sera votre gare de destination? </h1>
-			<GareSelector v-model="P_Gare_Destination" />
-			<input id="autre" class="form-control" type="text" v-model="P_Gare_Destination"
-				placeholder="Gare Internationale">
-			<button v-if="P_Gare_Destination" @click="next" class="btn-next">Suivant</button>
+		<div id="QA2E" v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Trottinette'">
+			<h1>Où stationnez-vous votre trottinette?</h1>
+			<select v-model="A_Detail_trottinette" class="form-control">
+				<option v-for="option in p_detail_trottinette" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="A_Detail_trottinette === 'Autre'" class="form-control" type="text"
+				v-model="Precision_A_Detail_trottinette" placeholder="Precisions">
+			<button v-if="A_Detail_trottinette" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div v-if="Type_Usager === 'Partant' && level === 6">
-			<h1>Combien de temps allez-vous rester stationner ?</h1>
-			<input id="autre" class="form-control" type="text" v-model="P_Detail_CV_temps"
-				placeholder="Réponse ouverte">
-			<button v-if="P_Detail_CV_temps" @click="next" class="btn-next">Suivant</button>
+
+		<div id="QA3" v-if="((level === 8 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 9 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+		|| (level === 7 && Usager_train === 'Non-usager' && NV_MOTIF_PRESENCE === 'Arrivant-Bus')">
+			<h1>Juste après avoir quitter la gare, votre destination est Châteaudun ou une autre commune?</h1>
+			<select v-model="A_Destination_commune" class="form-control">
+				<option v-for="option in p_origine_commune" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<div v-if="A_Destination_commune === 'Autre'">
+				<CommuneSelector v-model="Precision_A_Destination_commune" />
+			</div>
+			<div id="QA3A" v-if="A_Destination_commune === 'Châteaudun'">
+				<h1>Précisez de quelle rue à Châteaudun ?</h1>
+				<input class="form-control" type="text" v-model="A_Destination_rue" placeholder="Precisions">
+			</div>
+			<button
+				v-if="A_Destination_commune && A_Destination_rue || A_Destination_commune && Precision_A_Destination_commune"
+				@click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div v-if="Type_Usager === 'Arrivant' && level === 5">
-			<h1>Quelle est votre gare d'origine? </h1>
-			<GareSelector v-model="A_Gare_Origine" />
-			<input id="autre" class="form-control" type="text" v-model="A_Gare_Origine"
-				placeholder="Gare Internationale">
-			<button v-if="A_Gare_Origine" @click="next" class="btn-fin">Suivant</button>
+		<!-- NON USAGER -->
+
+
+		<div id="QNV1" v-if="level === 5 && Usager_train === 'Non-usager'">
+			<h1>Quelle est la raison de votre présence en gare ?</h1>
+			<select v-model="NV_MOTIF_PRESENCE" class="form-control">
+				<option v-for="option in nv_motif_presence" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_MOTIF_PRESENCE === 'Autre'" class="form-control" type="text"
+				v-model="Precision_NV_MOTIF_PRESENCE" placeholder="Precisions">
+			<button v-if="NV_MOTIF_PRESENCE" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div v-if="Type_Usager === 'Arrivant' && level === 6">
-			<h1>Combien de temps etes-vous rester stationner ?</h1>
-			<input id="autre" class="form-control" type="text" v-model="A_Detail_VC_temps"
-				placeholder="Réponse ouverte">
-			<button v-if="A_Detail_VC_temps" @click="next" class="btn-next">Suivant</button>
+
+
+		<div id="QNV1A" v-if="level === 6 && Usager_train === 'Non-usager' && NV_MOTIF_PRESENCE === 'Partant-Bus'">
+			<h1>Quelle ligne de bus ou de car venez-vous prendre en gare de Châteaudun ?</h1>
+			<select v-model="NV_Bus_Car_Diffusion" class="form-control">
+				<option v-for="option in nv_bus_car_diffusion" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_Bus_Car_Diffusion === 'Autre'" class="form-control" type="text"
+				v-model="Precision_NV_Bus_Car_Diffusion" placeholder="Precisions">
+			<button v-if="NV_Bus_Car_Diffusion" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div
-			v-if="level === 7 || level === 5 && Type_Usager === 'Attendre' || level === 5 && Type_Usager === 'Accompagner'
-				|| level === 5 && Type_Usager === 'Renseignement' || level === 5 && Type_Usager === 'Achat'
-				|| level === 5 && Type_Usager === 'Travailler' || level === 5 && Type_Usager === 'Bus' || level === 5 && Type_Usager === 'Autre'">
+		<div id="QNV1B" v-if="level === 6 && Usager_train === 'Non-usager' && NV_MOTIF_PRESENCE === 'Arrivant-Bus'">
+			<h1>Avec quelle ligne de bus ou de car êtes-vous arrivé en gare de Châteaudun ?</h1>
+			<select v-model="NV_Bus_Car_Rabattement" class="form-control">
+				<option v-for="option in nv_bus_car_rabattement" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_Bus_Car_Rabattement === 'Autre'" class="form-control" type="text"
+				v-model="Precision_NV_Bus_Car_Rabattement" placeholder="Precisions">
+			<button v-if="NV_Bus_Car_Rabattement" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QNV6"
+			v-if="((level === 6 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Attendre' || NV_MOTIF_PRESENCE === 'Accompagner' || NV_MOTIF_PRESENCE === 'Autre'))">
+			<h1>Quels services souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
+			<select v-model="NV_Service" class="form-control">
+				<option v-for="option in nv_services" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_Service === 'Autre'" class="form-control" type="text" v-model="Precision_NV_Service"
+				placeholder="Precisions">
+			<button v-if="NV_Service" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QNV7"
+			v-if="((level === 7 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Attendre' || NV_MOTIF_PRESENCE === 'Accompagner' || NV_MOTIF_PRESENCE === 'Autre'))">
+			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare ? (plusieurs choix possibles)</h1>
+			<select v-model="NV_Commerces" class="form-control">
+				<option v-for="option in nv_commerces" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="NV_Commerces === 'Autre' || Commerces === 'Proximité'" class="form-control" type="text"
+				v-model="Precision_NV_Commerces" placeholder="Precisions">
+			<button v-if="NV_Commerces" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QNV8"
+			v-if="((level === 8 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Attendre' || NV_MOTIF_PRESENCE === 'Accompagner' || NV_MOTIF_PRESENCE === 'Autre'))">
+			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
+				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
+			<input class="form-control" type="text" v-model="NV_Attentes_Gare" placeholder="Precisions">
+			<button v-if="NV_Attentes_Gare" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+
+
+
+
+
+		<!-- MAIN QUESTIONS -->
+
+
+		<div id="QCo4"
+			v-if="(level === 8 && Type_Usager === 'Correspondant')
+				|| ((level === 9 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 10 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 9 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 10 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| ((level === 8 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
+			<h1>Quel est le motif de votre déplacement ?</h1>
+			<select v-model="Motif" class="form-control">
+				<option v-for="option in motif" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="Motif === 'Autre'" class="form-control" type="text" v-model="Precision_Motif"
+				placeholder="Precisions">
+			<button v-if="Motif" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo5"
+			v-if="(level === 9 && Type_Usager === 'Correspondant')
+				|| ((level === 10 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 11 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 10 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 11 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| ((level === 9 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>A quelle fréquence venez-vous dans cette gare?</h1>
 			<select v-model="Frequence" class="form-control">
 				<option v-for="option in frequence" :key="option.id" :value="option.output">
@@ -442,15 +429,120 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
+		<div id="QCo6" v-if="(level === 10 && Type_Usager === 'Correspondant')
+				|| ((level === 11 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 12 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 11 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 12 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	||	(level === 10 && Usager_train === 'Non-usager')">
+			<h1>Quels services souhaiteriez-vous trouver en gare ?</h1>
+			<select v-model="Service" class="form-control">
+				<option v-for="option in services" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="Service === 'Autre'" class="form-control" type="text" v-model="Precision_Service"
+				placeholder="Precisions">
+			<button v-if="Service" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
 
-		last div download
-		 v-if="level === 8 || level === 6 && Type_Usager === 'Attendre' || level === 6 && Type_Usager === 'Accompagner'
-				|| level === 6 && Type_Usager === 'Renseignement' || level === 6 && Type_Usager === 'Achat'
-				|| level === 6 && Type_Usager === 'Travailler' || level === 6 && Type_Usager === 'Bus' || level === 6 && Type_Usager === 'Autre'"
-		 
-				<h1>Quelle est votre commune de résidence ?</h1>
-			<CommuneSelector v-model="Commune_residence" />
-			-->
+		<div id="QCo7" v-if="(level === 11 && Type_Usager === 'Correspondant')
+				|| ((level === 12 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 13 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 12 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 13 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| (level === 11 && Usager_train === 'Non-usager')">
+			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare</h1>
+			<select v-model="Commerces" class="form-control">
+				<option v-for="option in commerces" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<input v-if="Commerces === 'Autre' || Commerces === 'Proximité'" class="form-control" type="text"
+				v-model="Precision_Commerces" placeholder="Precisions">
+			<button v-if="Commerces" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo8" v-if="(level === 12 && Type_Usager === 'Correspondant')
+				|| ((level === 13 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 14 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 13 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 14 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| (level === 12 && Usager_train === 'Non-usager')">
+			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
+				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
+			<input class="form-control" type="text" v-model="Attentes_Gare" placeholder="Precisions">
+			<button v-if="Attentes_Gare" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo9" v-if="(level === 13 && Type_Usager === 'Correspondant')
+				|| ((level === 14 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 15 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 14 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 15 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| (level === 13 && Usager_train === 'Non-usager')">
+			<h1>Quelle est votre commune de résidence ?</h1>
+			<div>
+				<CommuneSelector v-model="Commune_residence" />
+			</div>
+			<div id="QCo9A" v-if="Commune_residence === 'CHATEAUDUN - 28088'">
+				<h1>Précisez de quelle rue à Châteaudun ?</h1>
+				<input class="form-control" type="text" v-model="Rue_résidence" placeholder="Precisions">
+				<button v-if="Rue_résidence" @click="next" class="btn-next">Suivant</button>
+			</div>
+			<button v-if="Commune_residence != 'CHATEAUDUN - 28088'" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo10" v-if="(level === 14 && Type_Usager === 'Correspondant')
+				|| ((level === 15 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 16 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 15 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 16 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| (level === 14 && Usager_train === 'Non-usager')">
+			<h1>Quelle est votre profession?</h1>
+			<select v-model="CSP" class="form-control">
+				<option v-for="option in csp" :key="option.id" :value="option.output">
+					{{ option.text }}
+				</option>
+			</select>
+			<button v-if="CSP" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+		<div id="QCo11" v-if="(level === 15 && Type_Usager === 'Correspondant')
+				|| ((level === 16 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 17 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 16 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 17 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| (level === 15 && Usager_train === 'Non-usager')">
+			<h1>Quel est votre âge ?</h1>
+			<input class=" form-control" type="text" v-model="Age" placeholder="Precisions">
+			<button v-if="Age" @click="next" class="btn-next">Suivant</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+
+
+		<!-- FIN -->
+
+		<div
+			v-if="(level === 16 && Type_Usager === 'Correspondant')
+				|| ((level === 17 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+				|| (level === 18 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+				|| ((level === 17 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
+	|| (level === 18 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| (level === 16 && Usager_train === 'Non-usager') 
+	|| ((level === 9 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Attendre' || NV_MOTIF_PRESENCE === 'Accompagner' || NV_MOTIF_PRESENCE === 'Autre'))">
+			<button @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
+			<button @click="back" class="btn-return">retour</button>
+		</div>
+		<img class="logo" src="../assets/Alycelogo.webp" alt="Logo Alyce">
+		<button class="btn-fin" @click="downloadData">download DATA</button>
+	</div>
+
 </template>
 
 <script setup>
@@ -461,6 +553,7 @@ import {
 	p_intermodalite_rabattement, p_detail_stationnement_rabattement,
 	p_detail_depose_rabattement, p_detail_bus_car, p_detail_velo,
 	p_detail_trottinette, p_origine_commune, a_intermodalite_diffusion,
+	a_detail_stationnement_diffusion, a_detail_reprise_diffusion
 
 } from "./reponses";
 import GareSelector from "./GareSelector.vue";
@@ -518,6 +611,20 @@ const Précision_P_Origine_commune = ref('');
 const A_Gare_Origine = ref('');
 const A_Intermodalite_diffusion = ref('');
 const Precision_A_Intermodalite_diffusion = ref('');
+const A_Detail_Stationnement_Diffusion = ref('');
+const Precision_A_Detail_Stationnement_Diffusion = ref('');
+const A_Detail_Reprise_Diffusion = ref('');
+const A_Detail_Bus_Car = ref('');
+const Precision_A_Detail_Bus_Car = ref('');
+const A_Detail_velo = ref('');
+const Precision_A_Detail_velo = ref('');
+const A_Detail_trottinette = ref('');
+const Precision_A_Detail_trottinette = ref('');
+const A_Destination_commune = ref('');
+const Precision_A_Destination_commune = ref('');
+const A_Destination_rue = ref('');
+const C_Gare_Origine = ref('');
+const C_Gare_Destination = ref('');
 
 
 
@@ -529,7 +636,6 @@ const startSurvey = () => {
 
 const next = () => {
 	level.value++;
-	console.log(level.value)
 
 }
 
@@ -592,9 +698,20 @@ const submitSurvey = async () => {
 		A_Gare_Origine: A_Gare_Origine.value,
 		A_Intermodalite_diffusion: A_Intermodalite_diffusion.value,
 		Precision_A_Intermodalite_diffusion: Precision_A_Intermodalite_diffusion.value,
-
-		
-
+		A_Detail_Stationnement_Diffusion: A_Detail_Stationnement_Diffusion.value,
+		Precision_A_Detail_Stationnement_Diffusion: Precision_A_Detail_Stationnement_Diffusion.value,
+		A_Detail_Reprise_Diffusion: A_Detail_Reprise_Diffusion.value,
+		A_Detail_Bus_Car: A_Detail_Bus_Car.value,
+		Precision_A_Detail_Bus_Car: Precision_A_Detail_Bus_Car.value,
+		A_Detail_velo: A_Detail_velo.value,
+		Precision_A_Detail_velo: Precision_A_Detail_velo.value,
+		A_Detail_trottinette: A_Detail_trottinette.value,
+		Precision_A_Detail_trottinette: Precision_A_Detail_trottinette.value,
+		A_Destination_commune: A_Destination_commune.value,
+		Precision_A_Destination_commune: Precision_A_Destination_commune.value,
+		A_Destination_rue: A_Destination_rue.value,
+		C_Gare_Origine: C_Gare_Origine.value,
+		C_Gare_Destination: C_Gare_Destination.value,
 
 	});
 	startDate.value = "";
@@ -643,10 +760,20 @@ const submitSurvey = async () => {
 	A_Gare_Origine.value = "";
 	A_Intermodalite_diffusion.value = "";
 	Precision_A_Intermodalite_diffusion.value = "";
-
-	
-	
-
+	A_Detail_Stationnement_Diffusion.value = "";
+	Precision_A_Detail_Stationnement_Diffusion.value = "";
+	A_Detail_Reprise_Diffusion.value = "";
+	A_Detail_Bus_Car.value = "";
+	Precision_A_Detail_Bus_Car.value = "";
+	A_Detail_velo.value = "";
+	Precision_A_Detail_velo.value = "";
+	A_Detail_trottinette.value = "";
+	Precision_A_Detail_trottinette.value = "";
+	A_Destination_commune.value = "";
+	Precision_A_Destination_commune.value = "";
+	A_Destination_rue.value = "";
+	C_Gare_Origine.value = "";
+	C_Gare_Destination.value = "";
 
 };
 
@@ -709,6 +836,21 @@ const downloadData = async () => {
 			A_Gare_Origine: "A_Gare_Origine",
 			A_Intermodalite_diffusion: "A_Intermodalite_diffusion",
 			Precision_A_Intermodalite_diffusion: "Precision_A_Intermodalite_diffusion",
+			A_Detail_Stationnement_Diffusion: "A_Detail_Stationnement_Diffusion",
+			Precision_A_Detail_Stationnement_Diffusion: "Precision_A_Detail_Stationnement_Diffusion",
+			A_Detail_Reprise_Diffusion: "A_Detail_Reprise_Diffusion",
+			A_Detail_Bus_Car: "A_Detail_Bus_Car",
+			Precision_A_Detail_Bus_Car: "Precision_A_Detail_Bus_Car",
+			A_Detail_velo: "A_Detail_velo",
+			Precision_A_Detail_velo: "Precision_A_Detail_velo",
+			A_Detail_trottinette: "A_Detail_trottinette",
+			Precision_A_Detail_trottinette: "Precision_A_Detail_trottinette",
+			A_Destination_commune: "A_Destination_commune",
+			Precision_A_Destination_commune: "Precision_A_Destination_commune",
+			A_Destination_rue: "A_Destination_rue",
+			C_Gare_Origine: "C_Gare_Origine",
+			C_Gare_Destination: "C_Gare_Destination",
+
 
 		};
 
@@ -771,7 +913,20 @@ const downloadData = async () => {
 				A_Gare_Origine: docData.A_Gare_Origine || "",
 				A_Intermodalite_diffusion: docData.A_Intermodalite_diffusion || "",
 				Precision_A_Intermodalite_diffusion: docData.Precision_A_Intermodalite_diffusion || "",
-
+				A_Detail_Stationnement_Diffusion: docData.A_Detail_Stationnement_Diffusion || "",
+				Precision_A_Detail_Stationnement_Diffusion: docData.Precision_A_Detail_Stationnement_Diffusion || "",
+				A_Detail_Reprise_Diffusion: docData.A_Detail_Reprise_Diffusion || "",
+				A_Detail_Bus_Car: docData.A_Detail_Bus_Car || "",
+				Precision_A_Detail_Bus_Car: docData.Precision_A_Detail_Bus_Car || "",
+				A_Detail_velo: docData.A_Detail_velo || "",
+				Precision_A_Detail_velo: docData.Precision_A_Detail_velo || "",
+				A_Detail_trottinette: docData.A_Detail_trottinette || "",
+				Precision_A_Detail_trottinette: docData.Precision_A_Detail_trottinette || "",
+				A_Destination_commune: docData.A_Destination_commune || "",
+				Precision_A_Destination_commune: docData.Precision_A_Destination_commune || "",
+				A_Destination_rue: docData.A_Destination_rue || "",
+				C_Gare_Origine: docData.C_Gare_Origine || "",
+				C_Gare_Destination: docData.C_Gare_Destination || "",
 
 			};
 			data.push(mappedData);
@@ -798,7 +953,7 @@ const downloadData = async () => {
 		XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
 
 		// Export the workbook to a .xlsx file
-		XLSX.writeFile(workbook, "OdSens.xlsx");
+		XLSX.writeFile(workbook, "Chateaudun.xlsx");
 	} catch (error) {
 		console.error("Error downloading data: ", error);
 	}
@@ -914,122 +1069,3 @@ button {
 	padding: 10px;
 }
 </style>
-<!-- <style>
-body {
-	background-color: #1e1e1e;
-}
-
-.container {
-	background-color: #1e1e1e;
-	color: white;
-	padding: 5% 0;
-	width: 75%;
-	margin: auto;
-}
-
-.btn-next {
-	width: 100%;
-	background-color: green;
-	color: white;
-	padding: 20px 20px;
-	margin-top: 20%;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.btn-fin {
-	width: 100%;
-	background-color: #4c4faf;
-	color: white;
-	padding: 20px 20px;
-	margin-top: 20%;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.btn-return {
-	width: 100%;
-	background-color: #898989;
-	color: white;
-	padding: 20px 20px;
-	margin-top: 20%;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.btn-return:hover {
-	background-color: #839684;
-}
-
-.btn-data {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background-color: #4caf50;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	width: 100%;
-}
-
-.btn-data:hover {
-	background-color: #45a049;
-}
-
-h1 {
-	text-align: center;
-	color: #4caf50;
-}
-
-.commune-dropdown {
-	/* Style your dropdown list here */
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	max-height: 200px;
-	overflow-y: auto;
-}
-
-.form-control {
-	width: 100%;
-	padding: 10px !important;
-	border-radius: 5px;
-	border: 1px solid #333;
-	background-color: #333;
-	color: white;
-	text-transform: uppercase;
-}
-
-.commune-dropdown li {
-	padding: 5px 10px;
-	cursor: pointer;
-}
-
-.commune-dropdown li:hover {
-	background-color: #f0f0f0;
-}
-
-.form-control {
-	width: 100%;
-	padding: 10px !important;
-	border-radius: 5px;
-	border: 1px solid #333;
-	background-color: #333;
-	color: white;
-	text-transform: uppercase;
-}
-
-input,
-select,
-button {
-	font-size: 16px;
-	padding: 10px;
-}
-</style> -->

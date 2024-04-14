@@ -61,12 +61,28 @@ const typeUsagers = [
 ];
 
 const motif = [
-	{ id: 1, output: "travail", text: "travail" },
-	{ id: 2, output: "Professionnel", text: "Professionnel" },
-	{ id: 3, output: "Loisir", text: "Loisir" },
-	{ id: 4, output: "Etude", text: "Etude" },
-	{ id: 5, output: "Demarche", text: "Demarche" },
-	{ id: 6, output: "Autre", text: "Autre" },
+	{ id: 1, output: "travail", text: "Déplacement Domicile-Travail habituel" },
+	{
+		id: 2,
+		output: "Professionnel",
+		text: "Déplacements professionnels occasionnel",
+	},
+	{
+		id: 3,
+		output: "Loisir",
+		text: "Loisirs, vacances, visite d'un proche ou ami",
+	},
+	{
+		id: 4,
+		output: "Etude",
+		text: "Déplacement Domicile-Etudes (y compris stage)",
+	},
+	{
+		id: 5,
+		output: "Demarche",
+		text: "Démarches administratives, médicales ou achat",
+	},
+	{ id: 6, output: "Autre", text: "Autres --> précisez" },
 ];
 
 const services = [
@@ -247,7 +263,37 @@ const p_detail_stationnement_rabattement = [
 	{ id: 6, output: "Autre", text: "Autre : préciser" },
 ];
 
+const a_detail_stationnement_diffusion = [
+	{
+		id: 1,
+		output: "Gare_N",
+		text: "Parking de la gare au Nord des arrêts de Bus",
+	},
+	{
+		id: 2,
+		output: "Gare_S",
+		text: "Parking de la gare côté Sud proche du Centre de santé au travail",
+	},
+	{ id: 3, output: "Médiathèque", text: "Parking de la Médiathèque" },
+	{ id: 4, output: "Bd_Grindelle", text: "Boulevard Grindelle" },
+	{
+		id: 5,
+		output: "Halle",
+		text: "Parking de la Halle de l'autre côté des voies ferrées",
+	},
+	{ id: 6, output: "Autre", text: "Autre : préciser" },
+];
+
 const p_detail_depose_rabattement = [
+	{ id: 1, output: "Déposé", text: "Déposé par une voiture repartie" },
+	{
+		id: 2,
+		output: "Covoitureur",
+		text: "Covoitureur d'une voiture stationnée",
+	},
+];
+
+const a_detail_reprise_diffusion = [
 	{ id: 1, output: "Déposé", text: "Déposé par une voiture repartie" },
 	{
 		id: 2,
@@ -286,6 +332,8 @@ const p_origine_commune = [
 	{ id: 2, output: "Autre", text: "Autre commune : précisez" },
 ];
 
+
+
 export {
 	sexes,
 	zone,
@@ -309,4 +357,6 @@ export {
 	p_detail_trottinette,
 	p_origine_commune,
 	a_intermodalite_diffusion,
+	a_detail_stationnement_diffusion,
+	a_detail_reprise_diffusion,
 };
