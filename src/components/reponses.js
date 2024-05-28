@@ -228,7 +228,6 @@ const p_intermodalite_rabattement = [
 ];
 
 
-
 const a_intermodalite_diffusion = [
 	{ id: 1, output: "Pied", text: "A pied exclusivement" },
 	{ id: 2, output: "Conducteur", text: "Voiture conducteur" },
@@ -323,7 +322,7 @@ const p_detail_velo = [
 ];
 const p_detail_trottinette = [
 	{ id: 1, output: "Arceaux", text: "Sur les arceaux devant la gare" },
-	{ id: 2, output: "Train", text: "Je prends mon vélo dans le train" },
+	{ id: 2, output: "Train", text: "Je prends ma trottinette dans le train" },
 	{ id: 3, output: "Autre", text: "Autre - précisez" },
 ];
 

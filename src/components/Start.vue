@@ -87,7 +87,8 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP2" v-if="level === 7 && Type_Usager === 'Partant'">
+		<div id="QP2"
+			v-if="level === 7 && Type_Usager === 'Partant' || (level === 7 && Usager_train === 'Non-usager' && NV_MOTIF_PRESENCE === 'Partant-Bus')">
 			<h1>Comment êtes-vous arrivé(e) en gare de Châteaudun ?</h1>
 			<select v-model="P_Intermodalite_rabattement" class="form-control">
 				<option v-for="option in p_intermodalite_rabattement" :key="option.id" :value="option.output">
@@ -101,7 +102,8 @@
 		</div>
 
 		<div id="QP2A"
-			v-if="(level === 8 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto')">
+			v-if="(level === 8 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto')
+	|| ((level === 8 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto') ) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Où est stationné le véhicule ?</h1>
 			<select v-model="P_Detail_stationnement_rabattement" class="form-control">
 				<option v-for="option in p_detail_stationnement_rabattement" :key="option.id" :value="option.output">
@@ -115,7 +117,9 @@
 		</div>
 
 
-		<div id="QP2B" v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Passager'">
+		<div id="QP2B"
+			v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Passager'
+				|| ((level === 8 && Usager_train === 'Non-usager' && P_Intermodalite_rabattement === 'Passager') && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Est-ce que la voiture qui vous a déposé est repartie ou s'est stationnée ?</h1>
 			<select v-model="P_Detail_depose_rabattement" class="form-control">
 				<option v-for="option in p_detail_depose_rabattement" :key="option.id" :value="option.output">
@@ -126,7 +130,9 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP2C" v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Bus'">
+		<div id="QP2C"
+			v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Bus'
+	|| ((level === 8 && Usager_train === 'Non-usager' && P_Intermodalite_rabattement === 'Bus') && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Avec quelle ligne de bus ou de car ?</h1>
 			<select v-model="P_Detail_Bus_Car" class="form-control">
 				<option v-for="option in p_detail_bus_car" :key="option.id" :value="option.output">
@@ -140,7 +146,9 @@
 		</div>
 
 
-		<div id="QP2D" v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Vélo'">
+		<div id="QP2D"
+			v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Vélo'
+	|| ((level === 8 && Usager_train === 'Non-usager' && P_Intermodalite_rabattement === 'Vélo') && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Où stationnez-vous votre vélo?</h1>
 			<select v-model="P_Detail_velo" class="form-control">
 				<option v-for="option in p_detail_velo" :key="option.id" :value="option.output">
@@ -154,7 +162,9 @@
 		</div>
 
 
-		<div id="QP2E" v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Trottinette'">
+		<div id="QP2E"
+			v-if="level === 8 && Type_Usager === 'Partant' && P_Intermodalite_rabattement === 'Trottinette'
+	|| ((level === 8 && Usager_train === 'Non-usager' && P_Intermodalite_rabattement === 'Trottinette') && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Où stationnez-vous votre trottinette?</h1>
 			<select v-model="P_Detail_trottinette" class="form-control">
 				<option v-for="option in p_detail_trottinette" :key="option.id" :value="option.output">
@@ -167,9 +177,11 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QP3" v-if="((level === 8 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
-			|| (level === 9 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
-			|| (level === 7 && Usager_train === 'Non-usager' && NV_MOTIF_PRESENCE === 'Partant-Bus')">
+		<div id="QP3"
+			v-if="((level === 8 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| (level === 9 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
+	|| ((level === 8 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
+	|| ((level === 9 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Juste avant d'arriver en gare, êtes vous parti(e) de Châteaudun ou d'une autre commune ?</h1>
 			<select v-model="P_Origine_commune" class="form-control">
 				<option v-for="option in p_origine_commune" :key="option.id" :value="option.output">
@@ -201,7 +213,8 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QA2" v-if="level === 7 && Type_Usager === 'Arrivant'">
+		<div id="QA2"
+			v-if="level === 7 && Type_Usager === 'Arrivant' || (level === 7 && Usager_train === 'Non-usager' && NV_MOTIF_PRESENCE === 'Arrivant-Bus')">
 			<h1>Comment partez-vous de la gare de Châteaudun ?</h1>
 			<select v-model="A_Intermodalite_diffusion" class="form-control">
 				<option v-for="option in a_intermodalite_diffusion" :key="option.id" :value="option.output">
@@ -215,8 +228,9 @@
 		</div>
 
 
-		<div id="QA2A" v-if="(level === 8 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Conducteur'
-			|| A_Intermodalite_diffusion === 'Moto')">
+		<div id="QA2A"
+			v-if="(level === 8 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')
+	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) &&  NV_MOTIF_PRESENCE === 'Arrivant-Bus')">
 			<h1>Où est stationné le véhicule ?</h1>
 			<select v-model="A_Detail_Stationnement_Diffusion" class="form-control">
 				<option v-for="option in a_detail_stationnement_diffusion" :key="option.id" :value="option.output">
@@ -230,7 +244,9 @@
 		</div>
 
 
-		<div id="QA2B" v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Passager'">
+		<div id="QA2B"
+			v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Passager'
+	|| ((level === 8 && Usager_train === 'Non-usager' && A_Intermodalite_diffusion === 'Passager') &&  NV_MOTIF_PRESENCE === 'Arrivant-Bus')">
 			<h1>Est-ce que la voiture avec laquelle vous repartez vient spécifiquement vous cherchez ou était
 				déjà stationnée ?</h1>
 			<select v-model="A_Detail_Reprise_Diffusion" class="form-control">
@@ -242,7 +258,9 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QA2C" v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Bus'">
+		<div id="QA2C"
+			v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Bus'
+	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Bus')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')">
 			<h1>Avec quelle ligne de bus ou de car ?</h1>
 			<select v-model="A_Detail_Bus_Car" class="form-control">
 				<option v-for="option in p_detail_bus_car" :key="option.id" :value="option.output">
@@ -255,7 +273,9 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QA2D" v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Vélo'">
+		<div id="QA2D"
+			v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Vélo'
+	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Vélo') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Où stationnez-vous votre vélo?</h1>
 			<select v-model="A_Detail_velo" class="form-control">
 				<option v-for="option in p_detail_velo" :key="option.id" :value="option.output">
@@ -268,7 +288,9 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QA2E" v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Trottinette'">
+		<div id="QA2E"
+			v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Trottinette'
+	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Trottinette') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Où stationnez-vous votre trottinette?</h1>
 			<select v-model="A_Detail_trottinette" class="form-control">
 				<option v-for="option in p_detail_trottinette" :key="option.id" :value="option.output">
@@ -283,8 +305,12 @@
 
 
 		<div id="QA3" v-if="((level === 8 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
-			|| (level === 9 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-			|| (level === 7 && Usager_train === 'Non-usager' && NV_MOTIF_PRESENCE === 'Arrivant-Bus')">
+	|| (level === 9 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
+	|| ((level === 9 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 9 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager'  ||  A_Intermodalite_Diffusion === 'Bus' || A_Intermodalite_Diffusion === 'Vélo' || A_Intermodalite_Diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
+
+">
 			<h1>Juste après avoir quitter la gare, votre destination est Châteaudun ou une autre commune?</h1>
 			<select v-model="A_Destination_commune" class="form-control">
 				<option v-for="option in p_origine_commune" :key="option.id" :value="option.output">
@@ -420,7 +446,14 @@
 				|| (level === 10 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 				|| ((level === 9 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 				|| (level === 10 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-				|| ((level === 8 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
+	|| ((level === 9 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre')) && (NV_MOTIF_PRESENCE === 'Partant-Bus'))
+	|| ((level === 10 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus'))
+
+	|| ((level === 10 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+
+
+	|| ((level === 10 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 9 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Quel est le motif de votre déplacement ?</h1>
 			<select v-model="Motif" class="form-control">
 				<option v-for="option in motif" :key="option.id" :value="option.output">
@@ -439,7 +472,13 @@
 				|| (level === 11 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 				|| ((level === 10 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 				|| (level === 11 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-				|| ((level === 9 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
+	|| ((level === 10 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre')) && (NV_MOTIF_PRESENCE === 'Partant-Bus'))
+	|| ((level === 11 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus'))
+
+	|| ((level === 11 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+
+	|| ((level === 11 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 10 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>A quelle fréquence venez-vous dans cette gare?</h1>
 			<select v-model="Frequence" class="form-control">
 				<option v-for="option in frequence" :key="option.id" :value="option.output">
@@ -450,12 +489,20 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo6" v-if="(level === 10 && Type_Usager === 'Correspondant')
+		<div id="QCo6"
+			v-if="(level === 10 && Type_Usager === 'Correspondant')
 			|| ((level === 11 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
 			|| (level === 12 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 			|| ((level === 11 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 			|| (level === 12 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-			|| (level === 10 && Usager_train === 'Non-usager')">
+	|| (level === 11 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| ((level === 12 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus'))
+
+
+	|| ((level === 12 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+
+	|| ((level === 12 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 11 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Quels services souhaiteriez-vous trouver en gare ?</h1>
 			<select v-model="Service" class="form-control">
 				<option v-for="option in services" :key="option.id" :value="option.output">
@@ -468,12 +515,19 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo7" v-if="(level === 11 && Type_Usager === 'Correspondant')
+		<div id="QCo7"
+			v-if="(level === 11 && Type_Usager === 'Correspondant')
 			|| ((level === 12 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
 			|| (level === 13 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 			|| ((level === 12 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 			|| (level === 13 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-			|| (level === 11 && Usager_train === 'Non-usager')">
+	|| (level === 12 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| ((level === 13 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
+	
+	|| ((level === 13 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+
+	|| ((level === 13 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 12 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare</h1>
 			<select v-model="Commerces" class="form-control">
 				<option v-for="option in commerces" :key="option.id" :value="option.output">
@@ -486,12 +540,19 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo8" v-if="(level === 12 && Type_Usager === 'Correspondant')
+		<div id="QCo8"
+			v-if="(level === 12 && Type_Usager === 'Correspondant')
 			|| ((level === 13 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
 			|| (level === 14 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 			|| ((level === 13 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 			|| (level === 14 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-			|| (level === 12 && Usager_train === 'Non-usager')">
+	|| (level === 13 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| ((level === 14 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
+
+	|| ((level === 14 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+
+	|| ((level === 14 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 13 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Avez-vous d'autres attentes concernant la rénovation de la gare (exemples que peut donner l'enquêteur :
 				places assises en gare, débouché à l'Est, lien urbain…) ?</h1>
 			<input class="form-control" type="text" v-model="Attentes_Gare" placeholder="Precisions">
@@ -499,12 +560,19 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo9" v-if="(level === 13 && Type_Usager === 'Correspondant')
+		<div id="QCo9"
+			v-if="(level === 13 && Type_Usager === 'Correspondant')
 			|| ((level === 14 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
 			|| (level === 15 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 			|| ((level === 14 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 			|| (level === 15 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-			|| (level === 13 && Usager_train === 'Non-usager')">
+	|| (level === 14 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| ((level === 15 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
+	
+	|| ((level === 15 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+
+	|| ((level === 15 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 14 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Quelle est votre commune de résidence ?</h1>
 			<div>
 				<CommuneSelector v-model="Commune_residence" />
@@ -518,12 +586,18 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo10" v-if="(level === 14 && Type_Usager === 'Correspondant')
+		<div id="QCo10"
+			v-if="(level === 14 && Type_Usager === 'Correspondant')
 			|| ((level === 15 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
 			|| (level === 16 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 			|| ((level === 15 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 			|| (level === 16 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-			|| (level === 14 && Usager_train === 'Non-usager')">
+	|| (level === 15 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| ((level === 16 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
+	
+
+	|| ((level === 16 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 15 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Quelle est votre profession?</h1>
 			<select v-model="CSP" class="form-control">
 				<option v-for="option in csp" :key="option.id" :value="option.output">
@@ -534,12 +608,16 @@
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 
-		<div id="QCo11" v-if="(level === 15 && Type_Usager === 'Correspondant')
+		<div id="QCo11"
+			v-if="(level === 15 && Type_Usager === 'Correspondant')
 			|| ((level === 16 && Type_Usager === 'Partant') && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
 			|| (level === 17 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 			|| ((level === 16 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 			|| (level === 17 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-			|| (level === 15 && Usager_train === 'Non-usager')">
+	|| (level === 16 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| ((level === 17 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
+	|| ((level === 17 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 16 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Quel est votre âge ?</h1>
 			<input class=" form-control" type="text" v-model="Age" placeholder="Precisions">
 			<button v-if="Age" @click="next" class="btn-next">Suivant</button>
@@ -555,13 +633,16 @@
 				|| (level === 18 && Type_Usager === 'Partant' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette'))
 				|| ((level === 17 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 				|| (level === 18 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
-				|| (level === 16 && Usager_train === 'Non-usager')
-				|| ((level === 9 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Attendre' || NV_MOTIF_PRESENCE === 'Accompagner' || NV_MOTIF_PRESENCE === 'Autre'))">
+	|| (level === 17 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
+	|| ((level === 18 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
+	|| ((level === 9 && Usager_train === 'Non-usager') && (NV_MOTIF_PRESENCE === 'Attendre' || NV_MOTIF_PRESENCE === 'Accompagner' || NV_MOTIF_PRESENCE === 'Autre'))
+	|| ((level === 18 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 17 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<button @click="submitSurvey" class="btn-next">FINIR QUESTIONNAIRE</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
 		<img class="logo" src="../assets/Alycelogo.webp" alt="Logo Alyce">
-		<!-- <button class="btn-fin" @click="downloadData">download DATA</button> -->
+		<button class="btn-fin" @click="downloadData">download DATA</button>
 	</div>
 
 	<div>
@@ -588,7 +669,7 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import * as XLSX from "xlsx";
 
 const docCount = ref(0);
-const surveyCollectionRef = collection(db, "Chateadun");
+const surveyCollectionRef = collection(db, "Chateaudun2");
 const level = ref(0);
 const startDate = ref('');
 const enqueteur = ref('');
