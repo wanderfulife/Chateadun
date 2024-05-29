@@ -22,3 +22,7 @@
 		<button @click="back" class="btn-return">retour</button>
 	</div>
 </template>
+
+<script>
+const VAR = ref([]);
+</script>

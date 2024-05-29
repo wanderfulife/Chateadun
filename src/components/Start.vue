@@ -260,7 +260,8 @@
 
 		<div id="QA2C"
 			v-if="level === 8 && Type_Usager === 'Arrivant' && A_Intermodalite_diffusion === 'Bus'
-	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Bus')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')">
+	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Bus')) && (NV_MOTIF_PRESENCE === 'Partant-Bus' || NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
+
 			<h1>Avec quelle ligne de bus ou de car ?</h1>
 			<select v-model="A_Detail_Bus_Car" class="form-control">
 				<option v-for="option in p_detail_bus_car" :key="option.id" :value="option.output">
@@ -307,10 +308,8 @@
 		<div id="QA3" v-if="((level === 8 && Type_Usager === 'Arrivant') && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre'))
 	|| (level === 9 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
 	|| ((level === 9 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
-	|| ((level === 9 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager'  ||  A_Intermodalite_Diffusion === 'Bus' || A_Intermodalite_Diffusion === 'Vélo' || A_Intermodalite_Diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
-	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))
-
-">
+	|| ((level === 9 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager'  ||  A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
+	|| ((level === 8 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Juste après avoir quitter la gare, votre destination est Châteaudun ou une autre commune?</h1>
 			<select v-model="A_Destination_commune" class="form-control">
 				<option v-for="option in p_origine_commune" :key="option.id" :value="option.output">
@@ -420,7 +419,7 @@
 			<input type="checkbox" id="5" value="Proximité" v-model="NV_Commerces">
 			<br>
 			<label for="6">Autre -> précisez</label>
-			<input type="checkbox" id="6" value="Autre" v-model="NV_Service">
+			<input type="checkbox" id="6" value="Autre" v-model="NV_Commerces">
 			<br>
 			<input v-if="NV_Commerces.includes('Autre') || NV_Commerces.includes('Proximité')" class="form-control"
 				type="text" v-model="Precision_NV_Commerces" placeholder="Precisions">
@@ -497,20 +496,31 @@
 			|| (level === 12 && Type_Usager === 'Arrivant' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto' || A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette'))
 	|| (level === 11 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Pied' || P_Intermodalite_rabattement === 'Location' || P_Intermodalite_rabattement === 'Taxi' || P_Intermodalite_rabattement === 'Autre'))
 	|| ((level === 12 && Usager_train === 'Non-usager' && (P_Intermodalite_rabattement === 'Conducteur' || P_Intermodalite_rabattement === 'Moto' || P_Intermodalite_rabattement === 'Passager' || P_Intermodalite_rabattement === 'Bus' || P_Intermodalite_rabattement === 'Vélo' || P_Intermodalite_rabattement === 'Trottinette')) && (NV_MOTIF_PRESENCE === 'Partant-Bus'))
-
-
 	|| ((level === 12 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Conducteur' || A_Intermodalite_diffusion === 'Moto')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
-
 	|| ((level === 12 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
 	|| ((level === 11 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Quels services souhaiteriez-vous trouver en gare ?</h1>
-			<select v-model="Service" class="form-control">
-				<option v-for="option in services" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="Service === 'Autre'" class="form-control" type="text" v-model="Precision_Service"
+			<label for="1"> Des sanitaires</label>
+			<input type="checkbox" id="1" value="Sanitaires" v-model="Service">
+			<br>
+			<label for="2">Un atelier de réparation et / ou de location vélos</label>
+			<input type="checkbox" id="2" value="Vélos" v-model="Service">
+			<br>
+			<label for="3">Un centre de santé</label>
+			<input type="checkbox" id="3" value="Santé" v-model="Service">
+			<br>
+			<label for="4">Une antenne de l'office du tourisme</label>
+			<input type="checkbox" id="4" value="Tourisme" v-model="Service">
+			<br>
+			<label for="5">Un Photomaton</label>
+			<input type="checkbox" id="5" value="Photomaton" v-model="Service">
+			<br>
+			<label for="6">Autre : precisez</label>
+			<input type="checkbox" id="6" value='Autre' v-model="Service">
+			<br>
+			<input v-if="Service.includes('Autre')" class="form-control" type="text" v-model="Precision_Service"
 				placeholder="Precisions">
+
 			<button v-if="Service" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
@@ -529,13 +539,26 @@
 	|| ((level === 13 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Passager' || A_Intermodalite_diffusion === 'Bus' || A_Intermodalite_diffusion === 'Vélo' || A_Intermodalite_diffusion === 'Trottinette')) && NV_MOTIF_PRESENCE === 'Arrivant-Bus')
 	|| ((level === 12 && Usager_train === 'Non-usager' && (A_Intermodalite_diffusion === 'Pied' || A_Intermodalite_diffusion === 'Location' || A_Intermodalite_diffusion === 'Taxi' || A_Intermodalite_diffusion === 'Autre') && NV_MOTIF_PRESENCE === 'Arrivant-Bus'))">
 			<h1>Quels magasins ou commerces souhaiteriez-vous trouver en gare</h1>
-			<select v-model="Commerces" class="form-control">
-				<option v-for="option in commerces" :key="option.id" :value="option.output">
-					{{ option.text }}
-				</option>
-			</select>
-			<input v-if="Commerces === 'Autre' || Commerces === 'Proximité'" class="form-control" type="text"
-				v-model="Precision_Commerces" placeholder="Precisions">
+			<label for="1">Un café</label>
+			<input type="checkbox" id="1" value="Café" v-model="Commerces">
+			<br>
+			<label for="2">Vente de presse</label>
+			<input type="checkbox" id="2" value="Presse" v-model="Commerces">
+			<br>
+			<label for="3">Une supérette</label>
+			<input type="checkbox" id="3" value="Supérette" v-model="Commerces">
+			<br>
+			<label for="4">Un distributeur de boissons/nourriture</label>
+			<input type="checkbox" id="4" value="Distributeur" v-model="Commerces">
+			<br>
+			<label for="5">Un commerce de proximité: precisez</label>
+			<input type="checkbox" id="5" value="Proximité" v-model="Commerces">
+			<br>
+			<label for="6">Autre : precisez</label>
+			<input type="checkbox" id="6" value="Autre" v-model="Commerces">
+			<br>
+			<input v-if="Commerces.includes('Autre') || Commerces.includes('Proximité')" class="form-control"
+				type="text" v-model="Precision_Commerces" placeholder="Precisions">
 			<button v-if="Commerces" @click="next" class="btn-next">Suivant</button>
 			<button @click="back" class="btn-return">retour</button>
 		</div>
@@ -680,9 +703,9 @@ const Type_Usager = ref('');
 const Motif = ref('');
 const Precision_Motif = ref('');
 const Frequence = ref('');
-const Service = ref('');
+const Service = ref([]);
 const Precision_Service = ref('');
-const Commerces = ref('');
+const Commerces = ref([]);
 const Precision_Commerces = ref('');
 const Attentes_Gare = ref('');
 const NV_Attentes_Gare = ref('');
@@ -837,9 +860,9 @@ const submitSurvey = async () => {
 	Motif.value = "";
 	Precision_Motif.value = "";
 	Frequence.value = "";
-	Service.value = "";
+	Service.value = [];
 	Precision_Service.value = "";
-	Commerces.value = "";
+	Commerces.value = [];
 	Precision_Commerces.value = "";
 	Attentes_Gare.value = "";
 	Commune_residence.value = "";
@@ -1041,6 +1064,29 @@ const downloadData = async () => {
 				C_Gare_Origine: docData.C_Gare_Origine || "",
 				C_Gare_Destination: docData.C_Gare_Destination || "",
 			};
+
+			// Extract Service key-value pairs and update headers dynamically
+			if (docData.Service) {
+				let ServiceString = "";
+				for (const key in docData.Service) {
+					const value = docData.Service[key];
+					// You can customize the separator here (e.g., comma, semicolon)
+					ServiceString += `${key}: ${value}, `;
+				}
+				// Remove the trailing comma and space from the string
+				mappedData.Service = ServiceString.slice(0, -2);
+			}
+
+			if (docData.Commerces) {
+				let CommercesString = "";
+				for (const key in docData.Commerces) {
+					const value = docData.Commerces[key];
+					// You can customize the separator here (e.g., comma, semicolon)
+					CommercesString += `${key}: ${value}, `;
+				}
+				// Remove the trailing comma and space from the string
+				mappedData.Commerces = CommercesString.slice(0, -2);
+			}
 
 			if (docData.NV_Service) {
 				let NV_ServiceString = "";
