@@ -297,7 +297,7 @@ const a_detail_reprise_diffusion = [
 	{
 		id: 2,
 		output: "Covoitureur",
-		text: "Covoitureur d'une voiture stationnée",
+		text: "récupéré par une voiture venue me chercher",
 	},
 ];
 
